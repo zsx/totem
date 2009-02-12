@@ -24,6 +24,9 @@
  * See license_change file for details.
  *
  */
+#include "config.h"
+
+#include <glib.h>
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -32,8 +35,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/un.h>
+#ifdef G_OS_UNIX
+  #include <sys/socket.h>
+  #include <sys/un.h>
+#endif
 #include <errno.h>
 
 #include "bacon-message-connection.h"
@@ -64,6 +69,7 @@ struct BaconMessageConnection {
 	gpointer data;
 };
 
+#ifdef G_OS_UNIX
 static gboolean
 test_is_socket (const char *path)
 {
@@ -292,6 +298,7 @@ try_client (BaconMessageConnection *conn)
 
 	return setup_connection (conn);
 }
+#endif
 
 BaconMessageConnection *
 bacon_message_connection_new (const char *prefix)
@@ -301,6 +308,7 @@ bacon_message_connection_new (const char *prefix)
 	g_return_val_if_fail (prefix != NULL, NULL);
 
 	conn = g_new0 (BaconMessageConnection, 1);
+#ifdef G_OS_UNIX
 	conn->path = socket_filename (prefix);
 
 	if (test_is_socket (conn->path) == FALSE)
@@ -328,6 +336,9 @@ bacon_message_connection_new (const char *prefix)
 		conn->is_server = TRUE;
 		return conn;
 	}
+#else
+	conn->fd = -1;
+#endif
 
 	conn->is_server = FALSE;
 	return conn;
@@ -388,10 +399,12 @@ bacon_message_connection_send (BaconMessageConnection *conn,
 	g_return_if_fail (conn != NULL);
 	g_return_if_fail (message != NULL);
 
+#ifdef G_OS_UNIX
 	g_io_channel_write_chars (conn->chan, message, strlen (message),
 				  NULL, NULL);
 	g_io_channel_write_chars (conn->chan, "\n", 1, NULL, NULL);
 	g_io_channel_flush (conn->chan, NULL);
+#endif
 }
 
 gboolean

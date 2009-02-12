@@ -34,7 +34,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
+#ifdef GDK_WINDOWING_X11
+  #include <gdk/gdkx.h>
+#endif
 #include <gconf/gconf-client.h>
 
 #include "totem-interface.h"
@@ -259,16 +261,18 @@ totem_interface_get_full_path (const char *name)
 static GdkWindow *
 totem_gtk_plug_get_toplevel (GtkPlug *plug)
 {
-	Window root, parent, *children;
-	guint nchildren;
 	GdkNativeWindow xid;
 
 	g_return_val_if_fail (GTK_IS_PLUG (plug), NULL);
 
 	xid = gtk_plug_get_id (plug);
 
+#ifdef GDK_WINDOWING_X11
 	do
 	{
+		Window root, parent, *children;
+		guint nchildren;
+
 		/* FIXME: multi-head */
 		if (XQueryTree (GDK_DISPLAY (), xid, &root,
 					&parent, &children, &nchildren) == 0)
@@ -286,6 +290,10 @@ totem_gtk_plug_get_toplevel (GtkPlug *plug)
 		xid = parent;
 	}
 	while (TRUE);
+#else
+#warning unimplemented
+	return NULL;
+#endif
 }
 
 void
