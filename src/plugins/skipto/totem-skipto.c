@@ -45,8 +45,8 @@
 static void totem_skipto_dispose	(GObject *object);
 
 /* Callback functions for GtkBuilder */
-void spin_button_activate_cb (GtkEntry *entry, TotemSkipto *skipto);
-void spin_button_value_changed_cb (GtkSpinButton *spinbutton, TotemSkipto *skipto);
+G_MODULE_EXPORT void spin_button_activate_cb (GtkEntry *entry, TotemSkipto *skipto);
+G_MODULE_EXPORT void spin_button_value_changed_cb (GtkSpinButton *spinbutton, TotemSkipto *skipto);
 
 struct TotemSkiptoPrivate {
 	GtkBuilder *xml;
