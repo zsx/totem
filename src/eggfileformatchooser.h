@@ -59,6 +59,10 @@ gchar*          egg_file_format_chooser_append_extension   (EggFileFormatChooser
                                                             const gchar          *filename,
                                                             guint                 format);
 
+#ifdef G_OS_WIN32
+  #define strtok_r(s,d,p) strtok(s,d)
+#endif
+
 G_END_DECLS
 
 #endif /* __EGG_FILE_FORMAT_CHOOSER_H__ */
