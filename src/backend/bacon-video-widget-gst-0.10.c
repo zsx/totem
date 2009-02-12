@@ -57,7 +57,6 @@
 #include <math.h>
 
 /* gtk+/gnome */
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
@@ -246,6 +245,24 @@ GST_DEBUG_CATEGORY (_totem_gst_debug_cat);
 #define GST_CAT_DEFAULT _totem_gst_debug_cat
 
 typedef gchar * (* MsgToStrFunc) (GstMessage * msg);
+
+#if defined (GDK_WINDOWING_X11)
+#include <gdk/gdkx.h>
+static GdkNativeWindow
+get_gdk_window_native_window (GdkWindow *window)
+{
+  return GDK_WINDOW_XWINDOW (window);
+}
+#elif defined (GDK_WINDOWING_WIN32)
+#include <gdk/gdkwin32.h>
+static GdkNativeWindow
+get_gdk_window_native_window (GdkWindow *window)
+{
+  return (GdkNativeWindow)GDK_WINDOW_HWND (window);
+}
+#else
+#warning unimplemented
+#endif
 
 static gchar **
 bvw_get_missing_plugins_foo (const GList * missing_plugins, MsgToStrFunc func)
@@ -634,8 +651,8 @@ bacon_video_widget_expose_event (GtkWidget *widget, GdkEventExpose *event)
 {
   BaconVideoWidget *bvw = BACON_VIDEO_WIDGET (widget);
   GstXOverlay *xoverlay;
+  GdkNativeWindow window;
   gboolean draw_logo;
-  XID window;
 
   if (event && event->count > 0)
     return TRUE;
@@ -651,10 +668,9 @@ bacon_video_widget_expose_event (GtkWidget *widget, GdkEventExpose *event)
 
   g_mutex_unlock (bvw->priv->lock);
 
-  window = GDK_WINDOW_XWINDOW (bvw->priv->video_window);
-
+  window = get_gdk_window_native_window (bvw->priv->video_window);
   if (xoverlay != NULL && GST_IS_X_OVERLAY (xoverlay))
-    gst_x_overlay_set_xwindow_id (xoverlay, window);
+    gst_x_overlay_set_xwindow_id (xoverlay, (gulong)window);
 
   /* Start with a nice black canvas */
   gdk_draw_rectangle (widget->window, widget->style->black_gc, TRUE, 0, 0,
@@ -4920,7 +4936,7 @@ bvw_element_msg_sync (GstBus *bus, GstMessage *msg, gpointer data)
   /* This only gets sent if we haven't set an ID yet. This is our last
    * chance to set it before the video sink will create its own window */
   if (gst_structure_has_name (msg->structure, "prepare-xwindow-id")) {
-    XID window;
+    GdkNativeWindow window;
 
     GST_DEBUG ("Handling sync prepare-xwindow-id message");
 
@@ -4931,8 +4947,8 @@ bvw_element_msg_sync (GstBus *bus, GstMessage *msg, gpointer data)
     g_return_if_fail (bvw->priv->xoverlay != NULL);
     g_return_if_fail (bvw->priv->video_window != NULL);
 
-    window = GDK_WINDOW_XWINDOW (bvw->priv->video_window);
-    gst_x_overlay_set_xwindow_id (bvw->priv->xoverlay, window);
+    window = get_gdk_window_native_window (bvw->priv->video_window);
+    gst_x_overlay_set_xwindow_id (bvw->priv->xoverlay, (gulong)window);
   }
 }
 
