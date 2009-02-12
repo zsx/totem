@@ -47,6 +47,18 @@ typedef int Py_ssize_t;
 #define PY_SSIZE_T_MIN INT_MIN
 #endif
 
+#ifdef G_OS_WIN32
+struct sigaction {
+	int          sa_flags;
+	sigset_t     sa_mask;
+	__p_sig_fn_t sa_handler;   /* see mingw/include/signal.h about the type */
+};
+int sigaction(int sig, struct sigaction *in, struct sigaction *out)
+{
+	g_printf("stub: sigaction\n");
+}
+#endif
+
 #define TOTEM_PYTHON_MODULE_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), \
 						 TOTEM_TYPE_PYTHON_MODULE, \
 						 TotemPythonModulePrivate))
