@@ -5018,7 +5018,14 @@ bacon_video_widget_new (int width, int height,
     if (audio_sink == NULL) {
       g_warning ("Could not create element 'gconfaudiosink'");
       /* Try to fallback on autoaudiosink */
+#ifdef G_OS_WIN32
+      audio_sink = gst_element_factory_make ("directsoundsink", "audio-sink");
+      if (audio_sink == NULL){
+	audio_sink = gst_element_factory_make ("fakesink", "audio-fake-sink");
+      }
+#else
       audio_sink = gst_element_factory_make ("autoaudiosink", "audio-sink");
+#endif
     } else {
       /* set the profile property on the gconfaudiosink to "music and movies" */
       if (g_object_class_find_property (G_OBJECT_GET_CLASS (audio_sink), "profile"))
@@ -5039,8 +5046,12 @@ bacon_video_widget_new (int width, int height,
       video_sink = gst_element_factory_make ("gconfvideosink", "video-sink");
       if (video_sink == NULL) {
         g_warning ("Could not create element 'gconfvideosink'");
+#ifdef G_OS_WIN32
+	video_sink = gst_element_factory_make("dshowvideosink", "video-sink");
+#else
         /* Try to fallback on ximagesink */
         video_sink = gst_element_factory_make ("ximagesink", "video-sink");
+#endif
       }
     }
 /* FIXME: April fool's day puzzle */
