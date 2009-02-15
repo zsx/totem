@@ -1,0 +1,9 @@
+export PATH=/c/gstreamer/bin:/c/devel/Gtk2-Dev/bin/c/Gtk2-Runtime/bin:/c/Gtk2-Runtime/libexec:/c/Python25/:$PATH
+export PKG_CONFIG_PATH=/c/devel/Gtk2-Dev/lib/pkgconfig:/c/gstreamer/lib/pkgconfig:/c/totem/lib/pkgconfig:/c/vala-0.5.6/lib/pkgconfig:/Python/lib/pkgconfig
+export GST_CFLAGS="-I/c/gstreamer/include -DGST_DISABLE_GST_DEBUG"
+export GST_LIBS="-L/c/gstreamer/lib"
+export CFLAGS="-I/c/Python25/include -I/c/devel/GTK2-dev/include -ggdb"
+export LDFLAGS="-L/c/Python25/libs -L/c/devel/GTK2-dev/lib"
+export PYGTK_CFLAGS=" -I/c/Python25/include/pygtk-2.0"
+export PYGTK_LIBS=" -L/c/Python25/libs"
+export MISSING_PLUGINS_CFLAGS=$GST_CFLAGS
