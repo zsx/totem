@@ -29,7 +29,7 @@ libskipto_la_SOURCES = \
 	totem-time-entry.h	\
 	totem-skipto.c		\
 	totem-skipto.h
-libskipto_la_LDFLAGS = $(modules_flags)
+libskipto_la_LDFLAGS = -no-undefined $(modules_flags)
 libskipto_la_CPPFLAGS = \
 	$(common_defines)		\
 	-I$(top_srcdir)/src/backend	\
@@ -45,6 +45,9 @@ libskipto_la_CFLAGS = 			\
 	-I$(top_srcdir)/src		\
 	-I$(top_srcdir)/src/plugins	\
 	-I$(srcdir)/
+
+libtotemmodule_la_LIBADD = \
+	$(DEPENDENCY_LIBS)
 
 EXTRA_DIST = $(plugin_in_files) $(ui_DATA)
 
