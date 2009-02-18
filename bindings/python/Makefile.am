@@ -1,13 +1,13 @@
 ## Process this file with automake to produce Makefile.in
 
-noinst_LTLIBRARIES = totem-python.la
+lib_LTLIBRARIES = totem-python.la
 
 nodist_totem_python_la_SOURCES = totem.c
 
 totem_python_la_SOURCES = override_common.c override_common.h
 
 totem_python_la_LDFLAGS = \
-	-module -avoid-version
+	-no-undefined -module -avoid-version
 
 totem_python_la_LIBADD = \
 	$(DEPENDENCY_LIBS)	\
