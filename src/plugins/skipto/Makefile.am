@@ -44,8 +44,21 @@ libskipto_la_CFLAGS = 			\
 	-I$(top_srcdir)/src/plugins	\
 	-I$(srcdir)/
 
-libtotemmodule_la_LIBADD = \
-	$(DEPENDENCY_LIBS)
+libskipto_la_LIBADD = \
+	$(top_builddir)/src/backend/libbaconvideowidget.la\
+	$(top_builddir)/src/libtotem.la \
+	$(GST_LIBS)		\
+	$(EXTRA_BACKEND_LIBS)	\
+	$(MISSING_PLUGINS_LIBS) \
+	$(DEPENDENCY_LIBS) 
+
+if ENABLE_PYTHON
+libskipto_la_LIBADD += 
+	$(top_srcdir)/bindings/python/totem-python.la
+	$(PYTHON_LIBS)		\
+	$(PYTHON_EXTRA_LIBS)	\
+	$(PYGTK_LIBS)
+endif
 
 EXTRA_DIST = $(plugin_in_files) $(ui_DATA)
 

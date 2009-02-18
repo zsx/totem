@@ -69,7 +69,8 @@ libbaconvideowidget_la_LIBADD =	\
 	$(GST_LIBS)		\
 	$(EXTRA_BACKEND_LIBS)	\
 	$(X_LIBS)		\
-	$(MISSING_PLUGINS_LIBS)
+	$(MISSING_PLUGINS_LIBS) \
+	$(GTK_LIBS)
 
 libbaconvideowidget_la_LDFLAGS=	\
 	-no-undefined

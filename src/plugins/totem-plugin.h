@@ -38,6 +38,7 @@ G_BEGIN_DECLS
 /*
  * Type checking and casting macros
  */
+G_MODULE_EXPORT GType totem_plugin_get_type();
 #define TOTEM_TYPE_PLUGIN              (totem_plugin_get_type())
 #define TOTEM_PLUGIN(obj)              (G_TYPE_CHECK_INSTANCE_CAST((obj), TOTEM_TYPE_PLUGIN, TotemPlugin))
 #define TOTEM_PLUGIN_CONST(obj)        (G_TYPE_CHECK_INSTANCE_CAST((obj), TOTEM_TYPE_PLUGIN, TotemPlugin const))

@@ -60,7 +60,7 @@ enum
 	PROP_NAME
 };
 
-GQuark
+G_MODULE_EXPORT GQuark
 totem_plugin_error_quark (void)
 {
 	static GQuark quark;
@@ -282,7 +282,7 @@ totem_get_plugin_paths (void)
  *
  * Return value: a newly-allocated absolute path for the file, or %NULL
  **/
-char *
+G_MODULE_EXPORT char *
 totem_plugin_find_file (TotemPlugin *plugin,
 			const char *file)
 {
@@ -340,7 +340,7 @@ totem_plugin_find_file (TotemPlugin *plugin,
  *
  * Return value: the #GtkBuilder instance for the interface
  **/
-GtkBuilder *
+G_MODULE_EXPORT GtkBuilder *
 totem_plugin_load_interface (TotemPlugin *plugin, const char *name,
 			     gboolean fatal, GtkWindow *parent,
 			     gpointer user_data)

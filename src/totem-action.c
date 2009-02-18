@@ -59,7 +59,7 @@ totem_seek_time_rel (Totem *totem, gint64 time, gboolean relative)
  * Seeks to an absolute time in the stream, or displays an
  * error dialog if that's not possible.
  **/
-void
+G_MODULE_EXPORT void
 totem_action_seek_time (Totem *totem, gint64 sec)
 {
 	totem_seek_time_rel (totem, sec, FALSE);
@@ -74,7 +74,7 @@ totem_action_seek_time (Totem *totem, gint64 sec)
  * or displays an error dialog if that's not possible.
  **/
 void
-totem_action_seek_relative (Totem *totem, gint64 offset)
+G_MODULE_EXPORT totem_action_seek_relative (Totem *totem, gint64 offset)
 {
 	totem_seek_time_rel (totem, offset, TRUE);
 }
@@ -88,7 +88,7 @@ totem_action_seek_relative (Totem *totem, gint64 offset)
  * Return value: %TRUE if Totem is playing a stream
  **/
 gboolean
-totem_is_playing (Totem *totem)
+G_MODULE_EXPORT totem_is_playing (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), FALSE);
 
@@ -106,8 +106,8 @@ totem_is_playing (Totem *totem)
  *
  * Return value: %TRUE if the current stream is seekable
  **/
-gboolean
-totem_is_seekable (Totem *totem)
+G_MODULE_EXPORT gboolean
+G_MODULE_EXPORT totem_is_seekable (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), FALSE);
 
@@ -126,7 +126,7 @@ totem_is_seekable (Totem *totem)
  * Return value: %TRUE if Totem is fullscreened
  **/
 gboolean
-totem_is_fullscreen (Totem *totem)
+G_MODULE_EXPORT totem_is_fullscreen (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), FALSE);
 

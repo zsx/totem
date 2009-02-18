@@ -227,7 +227,7 @@ totem_object_plugins_shutdown (void)
  *
  * Return value: Totem's main window
  **/
-GtkWindow *
+G_MODULE_EXPORT GtkWindow *
 totem_get_main_window (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), NULL);
@@ -245,7 +245,7 @@ totem_get_main_window (Totem *totem)
  *
  * Return value: Totem's UI manager
  **/
-GtkUIManager *
+G_MODULE_EXPORT GtkUIManager *
 totem_get_ui_manager (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), NULL);
@@ -261,7 +261,7 @@ totem_get_ui_manager (Totem *totem)
  *
  * Return value: Totem's video widget
  **/
-GtkWidget *
+G_MODULE_EXPORT GtkWidget *
 totem_get_video_widget (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), NULL);
@@ -271,7 +271,7 @@ totem_get_video_widget (Totem *totem)
 	return GTK_WIDGET (totem->bvw);
 }
 
-char *
+G_MODULE_EXPORT char *
 totem_get_video_widget_backend_name (Totem *totem)
 {
 	return bacon_video_widget_get_backend_name (totem->bvw);
@@ -285,7 +285,7 @@ totem_get_video_widget_backend_name (Totem *totem)
  *
  * Return value: the current position in the stream
  **/
-gint64
+G_MODULE_EXPORT gint64
 totem_get_current_time (Totem *totem)
 {
 	g_return_val_if_fail (TOTEM_IS_OBJECT (totem), 0);
@@ -293,7 +293,7 @@ totem_get_current_time (Totem *totem)
 	return bacon_video_widget_get_current_time (totem->bvw);
 }
 
-void
+G_MODULE_EXPORT void
 totem_add_to_playlist_and_play (Totem *totem,
 				const char *uri,
 				const char *display_name,
@@ -323,13 +323,13 @@ totem_add_to_playlist_and_play (Totem *totem,
 	}
 }
 
-char *
+G_MODULE_EXPORT char *
 totem_get_current_mrl (Totem *totem)
 {
 	return totem_playlist_get_current_mrl (totem->playlist, NULL);
 }
 
-guint
+G_MODULE_EXPORT guint
 totem_get_playlist_length (Totem *totem)
 {
 	int last;
@@ -340,26 +340,26 @@ totem_get_playlist_length (Totem *totem)
 	return last + 1;
 }
 
-int
+G_MODULE_EXPORT int
 totem_get_playlist_pos (Totem *totem)
 {
 	return totem_playlist_get_current (totem->playlist);
 }
 
-char *
+G_MODULE_EXPORT char *
 totem_get_title_at_playlist_pos (Totem *totem, guint index)
 {
 	return totem_playlist_get_title (totem->playlist, index);
 }
 
-char *
+G_MODULE_EXPORT char *
 totem_get_short_title (Totem *totem)
 {
 	gboolean custom;
 	return totem_playlist_get_current_title (totem->playlist, &custom);
 }
 
-void
+G_MODULE_EXPORT void
 totem_set_current_subtitle (Totem *totem, const char *subtitle_uri)
 {
 	totem_playlist_set_current_subtitle (totem->playlist, subtitle_uri);
@@ -376,7 +376,7 @@ totem_set_current_subtitle (Totem *totem, const char *subtitle_uri)
  * @main_widget is added into the page and shown automatically, while
  * @title is displayed as the page's title in the tab bar.
  **/
-void
+G_MODULE_EXPORT void
 totem_add_sidebar_page (Totem *totem,
 			const char *page_id,
 			const char *title,
@@ -397,7 +397,7 @@ totem_add_sidebar_page (Totem *totem,
  * If @page_id doesn't exist in the sidebar, this function does
  * nothing.
  **/
-void
+G_MODULE_EXPORT void
 totem_remove_sidebar_page (Totem *totem,
 			   const char *page_id)
 {

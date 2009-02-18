@@ -3361,8 +3361,8 @@ about_email_hook (GtkAboutDialog *about,
 	g_free (uri);
 }
 
-int
-main (int argc, char **argv)
+G_MODULE_EXPORT int
+totem_main (int argc, char **argv)
 {
 	Totem *totem;
 	GConfClient *gc;
