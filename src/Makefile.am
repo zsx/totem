@@ -1,4 +1,4 @@
-SUBDIRS = plugins backend
+SUBDIRS = backend plugins 
 
 bin_PROGRAMS = totem totem-video-thumbnailer totem-video-indexer totem-audio-preview
 libexec_PROGRAMS =
@@ -46,34 +46,6 @@ BACONDIR=$(srcdir)/../../libbacon/src
 regenerate-built-sources:
 	EGGFILES="$(BACON_MESSAGE_CONNECTION)" EGGDIR="$(BACONDIR)" $(srcdir)/update-from-egg.sh || true
 
-# Totem UI ltlibrary
-
-libtotem_player_la_SOURCES =		\
-	totem-statusbar.c		\
-	totem-statusbar.h		\
-	totem-interface.c		\
-	totem-interface.h		\
-	totem-fullscreen.c		\
-	totem-fullscreen.h		\
-	totem-time-label.c		\
-	totem-time-label.h
-
-libtotem_player_la_CPPFLAGS = \
-	-I$(srcdir)/backend	\
-	-I$(top_srcdir)/	\
-	$(common_defines)	\
-	$(AM_CPPFLAGS)
-
-libtotem_player_la_CFLAGS = \
-	$(DEPENDENCY_CFLAGS)	\
-	$(WARN_CFLAGS)		\
-	$(AM_CFLAGS)
-
-libtotem_player_la_LDFLAGS = \
-	$(AM_LDFLAGS)
-
-# Totem
-
 TOTEMMARSHALFILES = 						\
 	totemobject-marshal.c totemobject-marshal.h		\
 	totemplaylist-marshal.c totemplaylist-marshal.h		\
@@ -94,21 +66,54 @@ totemvideolist-marshal.h: totemvideolist-marshal.list Makefile
 totemvideolist-marshal.c: totemvideolist-marshal.h Makefile
 	( $(GLIB_GENMARSHAL) --prefix=totemvideolist_marshal $(srcdir)/totemvideolist-marshal.list --header --body > totemvideolist-marshal.c )
 
+# Totem UI ltlibrary
+
+libtotem_player_la_SOURCES =		\
+	$(TOTEMMARSHALFILES)	\
+	totem-object.c			\
+	totem-action.c			\
+	totem-uri.c				\
+   	totem-uri.h				\
+	totem-playlist.c 		\
+	totem-playlist.h		\
+	totem-statusbar.c		\
+	totem-statusbar.h		\
+	totem-interface.c		\
+	totem-interface.h		\
+	totem-fullscreen.c		\
+	totem-fullscreen.h		\
+	totem-time-label.c		\
+	totem-time-label.h
+
+libtotem_player_la_CPPFLAGS = \
+	-I$(srcdir)/backend			\
+	-I$(srcdir)/plugins			\
+	-I$(top_builddir)/data		\
+	-I$(top_srcdir)/			\
+	$(common_defines)			\
+	$(AM_CPPFLAGS)
+
+libtotem_player_la_CFLAGS = \
+	$(DEPENDENCY_CFLAGS)	\
+	$(WARN_CFLAGS)		\
+	$(AM_CFLAGS)
+
+libtotem_player_la_LDFLAGS = \
+	$(AM_LDFLAGS)
+
+# Totem
+
 totem_SOURCES = 					\
 	totem.c totem.h					\
-	totem-object.c					\
-	$(TOTEMMARSHALFILES)				\
 	totem-private.h					\
 	totem-preferences.c totem-preferences.h		\
 	totem-dnd-menu.c totem-dnd-menu.h 		\
 	totem-options.c totem-options.h			\
-	totem-playlist.c totem-playlist.h		\
 	eggfileformatchooser.c eggfileformatchooser.h	\
 	totem-session.c totem-session.h	\
 	totem-sidebar.c totem-sidebar.h \
 	totem-open-location.c totem-open-location.h \
 	totem-menu.c totem-menu.h	\
-	totem-uri.c totem-uri.h		\
 	ev-sidebar.c ev-sidebar.h	\
 	totem-subtitle-encoding.c	\
 	totem-subtitle-encoding.h	\
@@ -123,7 +128,6 @@ totem_CPPFLAGS = \
 	-I$(top_srcdir)/		\
 	-I$(srcdir)/backend		\
 	-I$(srcdir)/plugins		\
-	-I$(top_builddir)/data		\
 	$(common_defines)		\
 	$(AM_CPPFLAGS)
 
