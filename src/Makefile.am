@@ -17,6 +17,15 @@ common_defines = \
 #totem
 
 totem_SOURCES = main.c
+
+if HAVE_WINDRES
+totem_SOURCES += totem-res.rc
+.rc.o:
+	windres $^ -o $@
+%.o : %.rc
+	windres $^ -o $@
+endif
+
 totem_LDADD =						\
 	$(top_builddir)/src/backend/libbaconvideowidget.la	\
 	libtotem/libtotem.la					\

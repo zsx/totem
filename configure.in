@@ -32,6 +32,9 @@ PKG_PROG_PKG_CONFIG
 AC_PATH_PROG([GLIB_GENMARSHAL],[glib-genmarshal])
 AC_PATH_PROG([GLIB_MKENUMS],[glib-mkenums])
 
+# check windres for embeding icons to windows executables
+AM_CONDITIONAL(HAVE_WINDRES, which windres > /dev/null)
+
 # Requirements
 GLIB_REQS=2.13.4
 GTK_REQS=2.13.0
