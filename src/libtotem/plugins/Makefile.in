@@ -20,7 +20,7 @@ VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkglibdir = $(libdir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
-top_builddir = ../..
+top_builddir = ../../..
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 INSTALL = @INSTALL@
 install_sh_DATA = $(install_sh) -c -m 644
@@ -36,7 +36,18 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-subdir = bindings/python
+@ENABLE_PYTHON_TRUE@am__append_1 = \
+@ENABLE_PYTHON_TRUE@	totem-python-module.c		\
+@ENABLE_PYTHON_TRUE@	totem-python-module.h		\
+@ENABLE_PYTHON_TRUE@	totem-python-plugin.c		\
+@ENABLE_PYTHON_TRUE@	totem-python-plugin.h
+
+@ENABLE_PYTHON_TRUE@am__append_2 = \
+@ENABLE_PYTHON_TRUE@	$(NO_STRICT_ALIASING_CFLAGS)	\
+@ENABLE_PYTHON_TRUE@	$(PYGTK_CFLAGS)			\
+@ENABLE_PYTHON_TRUE@	$(PYTHON_CFLAGS)
+
+subdir = src/libtotem/plugins
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
@@ -47,13 +58,25 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 am__DEPENDENCIES_1 =
-totem_python_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1)
-am_totem_python_la_OBJECTS = totem_python_la-override_common.lo
-nodist_totem_python_la_OBJECTS = totem_python_la-totem.lo
-totem_python_la_OBJECTS = $(am_totem_python_la_OBJECTS) \
-	$(nodist_totem_python_la_OBJECTS)
+@ENABLE_PYTHON_TRUE@libtotemmodule_la_DEPENDENCIES =  \
+@ENABLE_PYTHON_TRUE@	$(am__DEPENDENCIES_1) \
+@ENABLE_PYTHON_TRUE@	$(am__DEPENDENCIES_1) \
+@ENABLE_PYTHON_TRUE@	$(am__DEPENDENCIES_1) \
+@ENABLE_PYTHON_TRUE@	$(am__DEPENDENCIES_1)
+am__libtotemmodule_la_SOURCES_DIST = totem-module.c totem-module.h \
+	totem-plugin.c totem-plugin.h totem-plugins-engine.c \
+	totem-plugins-engine.h totem-plugin-manager.c \
+	totem-plugin-manager.h totem-python-module.c \
+	totem-python-module.h totem-python-plugin.c \
+	totem-python-plugin.h
+@ENABLE_PYTHON_TRUE@am__objects_1 =  \
+@ENABLE_PYTHON_TRUE@	libtotemmodule_la-totem-python-module.lo \
+@ENABLE_PYTHON_TRUE@	libtotemmodule_la-totem-python-plugin.lo
+am_libtotemmodule_la_OBJECTS = libtotemmodule_la-totem-module.lo \
+	libtotemmodule_la-totem-plugin.lo \
+	libtotemmodule_la-totem-plugins-engine.lo \
+	libtotemmodule_la-totem-plugin-manager.lo $(am__objects_1)
+libtotemmodule_la_OBJECTS = $(am_libtotemmodule_la_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -65,8 +88,8 @@ LTCOMPILE = $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) \
 CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(totem_python_la_SOURCES) $(nodist_totem_python_la_SOURCES)
-DIST_SOURCES = $(totem_python_la_SOURCES)
+SOURCES = $(libtotemmodule_la_SOURCES)
+DIST_SOURCES = $(am__libtotemmodule_la_SOURCES_DIST)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -350,45 +373,42 @@ sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@
 sysconfdir = @sysconfdir@
 target_alias = @target_alias@
-noinst_LTLIBRARIES = totem-python.la
-nodist_totem_python_la_SOURCES = totem.c
-totem_python_la_SOURCES = override_common.c override_common.h
-totem_python_la_LDFLAGS = \
-	-module -avoid-version
+noinst_LTLIBRARIES = libtotemmodule.la
+common_defines = \
+	-D_REENTRANT					\
+	-DDBUS_API_SUBJECT_TO_CHANGE			\
+	-DGNOMELOCALEDIR=\""$(datadir)/locale"\"	\
+	-DGCONF_PREFIX=\""/apps/totem"\"		\
+	-DDATADIR=\""$(datadir)"\"			\
+	-DLIBEXECDIR=\""$(libexecdir)"\"		\
+	-DBINDIR=\""$(bindir)"\"			\
+	-DTOTEM_PLUGIN_DIR=\""$(libdir)/totem/plugins"\"\
+	$(DISABLE_DEPRECATED)
 
-totem_python_la_LIBADD = \
-	$(DEPENDENCY_LIBS)	\
-	$(PYTHON_LIBS)		\
-	$(PYTHON_EXTRA_LIBS)	\
-	$(PYGTK_LIBS)
+modules_flags = -export_dynamic -avoid-version -module
+libtotemmodule_la_SOURCES = totem-module.c totem-module.h \
+	totem-plugin.c totem-plugin.h totem-plugins-engine.c \
+	totem-plugins-engine.h totem-plugin-manager.c \
+	totem-plugin-manager.h $(am__append_1)
+libtotemmodule_la_CPPFLAGS = \
+	$(common_defines)	\
+	$(AM_CPPFLAGS)
 
-totem_python_la_CFLAGS = \
-	-I$(top_srcdir)			\
-	-I$(top_srcdir)/src/libtotem		\
-	-I$(top_srcdir)/src/libtotem/plugins \
-	$(DEPENDENCY_CFLAGS)		\
-	$(PYGTK_CFLAGS)			\
-	$(PYTHON_CFLAGS)		\
-	$(AM_CFLAGS)			\
-	$(WNOERROR_CFLAGS)
+libtotemmodule_la_CFLAGS = $(DEPENDENCY_CFLAGS) $(WARN_CFLAGS) \
+	$(DBUS_CFLAGS) $(AM_CFLAGS) -I$(top_srcdir) \
+	-I$(top_srcdir)/lib -I$(top_builddir)/lib -I$(top_srcdir)/src \
+	-I$(top_srcdir)/src/backend -I$(top_srcdir)/src/plparse \
+	-I$(top_srcdir)/src/libtotem $(am__append_2)
+libtotemmodule_la_LDFLAGS = \
+	$(AM_LDFLAGS)			
 
-BINDING_HEADERS_SRCDIR_IN = \
-	src/totem.h				\
-	src/totem-cell-renderer-video.h		\
-	src/plugins/totem-plugin.h		\
-	$(NULL)
+@ENABLE_PYTHON_TRUE@libtotemmodule_la_LIBADD = \
+@ENABLE_PYTHON_TRUE@	$(DEPENDENCY_LIBS)	\
+@ENABLE_PYTHON_TRUE@	$(PYTHON_LIBS)		\
+@ENABLE_PYTHON_TRUE@	$(PYTHON_EXTRA_LIBS)	\
+@ENABLE_PYTHON_TRUE@	$(PYGTK_LIBS)
 
-BINDING_HEADERS_BUILDDIR_IN = 
-BINDING_HEADERS_SRCDIR := $(addprefix $(top_srcdir)/,$(BINDING_HEADERS_SRCDIR_IN))
-BINDING_HEADERS_BUILDDIR := $(addprefix $(top_builddir)/,$(BINDING_HEADERS_BUILDDIR_IN))
-BUILT_SOURCES = totem.c
-EXTRA_DIST = \
-	totem.override		\
-	totem.defs
-
-CLEANFILES = $(BUILT_SOURCES)
-all: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) all-am
+all: all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .o .obj
@@ -401,9 +421,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__confi
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  bindings/python/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu  src/libtotem/plugins/Makefile'; \
 	cd $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu  bindings/python/Makefile
+	  $(AUTOMAKE) --gnu  src/libtotem/plugins/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -430,8 +450,8 @@ clean-noinstLTLIBRARIES:
 	  echo "rm -f \"$${dir}/so_locations\""; \
 	  rm -f "$${dir}/so_locations"; \
 	done
-totem-python.la: $(totem_python_la_OBJECTS) $(totem_python_la_DEPENDENCIES) 
-	$(LINK)  $(totem_python_la_LDFLAGS) $(totem_python_la_OBJECTS) $(totem_python_la_LIBADD) $(LIBS)
+libtotemmodule.la: $(libtotemmodule_la_OBJECTS) $(libtotemmodule_la_DEPENDENCIES) 
+	$(LINK)  $(libtotemmodule_la_LDFLAGS) $(libtotemmodule_la_OBJECTS) $(libtotemmodule_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -439,8 +459,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/totem_python_la-override_common.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/totem_python_la-totem.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-plugin-manager.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-plugin.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-plugins-engine.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-python-module.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libtotemmodule_la-totem-python-plugin.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`; \
@@ -466,19 +490,47 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
 
-totem_python_la-override_common.lo: override_common.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(totem_python_la_CFLAGS) $(CFLAGS) -MT totem_python_la-override_common.lo -MD -MP -MF "$(DEPDIR)/totem_python_la-override_common.Tpo" -c -o totem_python_la-override_common.lo `test -f 'override_common.c' || echo '$(srcdir)/'`override_common.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/totem_python_la-override_common.Tpo" "$(DEPDIR)/totem_python_la-override_common.Plo"; else rm -f "$(DEPDIR)/totem_python_la-override_common.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='override_common.c' object='totem_python_la-override_common.lo' libtool=yes @AMDEPBACKSLASH@
+libtotemmodule_la-totem-module.lo: totem-module.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-module.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-module.Tpo" -c -o libtotemmodule_la-totem-module.lo `test -f 'totem-module.c' || echo '$(srcdir)/'`totem-module.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-module.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-module.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-module.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-module.c' object='libtotemmodule_la-totem-module.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(totem_python_la_CFLAGS) $(CFLAGS) -c -o totem_python_la-override_common.lo `test -f 'override_common.c' || echo '$(srcdir)/'`override_common.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-module.lo `test -f 'totem-module.c' || echo '$(srcdir)/'`totem-module.c
 
-totem_python_la-totem.lo: totem.c
-@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(totem_python_la_CFLAGS) $(CFLAGS) -MT totem_python_la-totem.lo -MD -MP -MF "$(DEPDIR)/totem_python_la-totem.Tpo" -c -o totem_python_la-totem.lo `test -f 'totem.c' || echo '$(srcdir)/'`totem.c; \
-@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/totem_python_la-totem.Tpo" "$(DEPDIR)/totem_python_la-totem.Plo"; else rm -f "$(DEPDIR)/totem_python_la-totem.Tpo"; exit 1; fi
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem.c' object='totem_python_la-totem.lo' libtool=yes @AMDEPBACKSLASH@
+libtotemmodule_la-totem-plugin.lo: totem-plugin.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-plugin.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-plugin.Tpo" -c -o libtotemmodule_la-totem-plugin.lo `test -f 'totem-plugin.c' || echo '$(srcdir)/'`totem-plugin.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-plugin.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-plugin.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-plugin.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-plugin.c' object='libtotemmodule_la-totem-plugin.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(totem_python_la_CFLAGS) $(CFLAGS) -c -o totem_python_la-totem.lo `test -f 'totem.c' || echo '$(srcdir)/'`totem.c
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-plugin.lo `test -f 'totem-plugin.c' || echo '$(srcdir)/'`totem-plugin.c
+
+libtotemmodule_la-totem-plugins-engine.lo: totem-plugins-engine.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-plugins-engine.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-plugins-engine.Tpo" -c -o libtotemmodule_la-totem-plugins-engine.lo `test -f 'totem-plugins-engine.c' || echo '$(srcdir)/'`totem-plugins-engine.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-plugins-engine.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-plugins-engine.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-plugins-engine.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-plugins-engine.c' object='libtotemmodule_la-totem-plugins-engine.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-plugins-engine.lo `test -f 'totem-plugins-engine.c' || echo '$(srcdir)/'`totem-plugins-engine.c
+
+libtotemmodule_la-totem-plugin-manager.lo: totem-plugin-manager.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-plugin-manager.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-plugin-manager.Tpo" -c -o libtotemmodule_la-totem-plugin-manager.lo `test -f 'totem-plugin-manager.c' || echo '$(srcdir)/'`totem-plugin-manager.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-plugin-manager.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-plugin-manager.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-plugin-manager.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-plugin-manager.c' object='libtotemmodule_la-totem-plugin-manager.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-plugin-manager.lo `test -f 'totem-plugin-manager.c' || echo '$(srcdir)/'`totem-plugin-manager.c
+
+libtotemmodule_la-totem-python-module.lo: totem-python-module.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-python-module.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-python-module.Tpo" -c -o libtotemmodule_la-totem-python-module.lo `test -f 'totem-python-module.c' || echo '$(srcdir)/'`totem-python-module.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-python-module.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-python-module.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-python-module.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-python-module.c' object='libtotemmodule_la-totem-python-module.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-python-module.lo `test -f 'totem-python-module.c' || echo '$(srcdir)/'`totem-python-module.c
+
+libtotemmodule_la-totem-python-plugin.lo: totem-python-plugin.c
+@am__fastdepCC_TRUE@	if $(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -MT libtotemmodule_la-totem-python-plugin.lo -MD -MP -MF "$(DEPDIR)/libtotemmodule_la-totem-python-plugin.Tpo" -c -o libtotemmodule_la-totem-python-plugin.lo `test -f 'totem-python-plugin.c' || echo '$(srcdir)/'`totem-python-plugin.c; \
+@am__fastdepCC_TRUE@	then mv -f "$(DEPDIR)/libtotemmodule_la-totem-python-plugin.Tpo" "$(DEPDIR)/libtotemmodule_la-totem-python-plugin.Plo"; else rm -f "$(DEPDIR)/libtotemmodule_la-totem-python-plugin.Tpo"; exit 1; fi
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='totem-python-plugin.c' object='libtotemmodule_la-totem-python-plugin.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(LIBTOOL) --tag=CC --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libtotemmodule_la_CPPFLAGS) $(CPPFLAGS) $(libtotemmodule_la_CFLAGS) $(CFLAGS) -c -o libtotemmodule_la-totem-python-plugin.lo `test -f 'totem-python-plugin.c' || echo '$(srcdir)/'`totem-python-plugin.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -565,16 +617,11 @@ distdir: $(DISTFILES)
 	    || exit 1; \
 	  fi; \
 	done
-	$(MAKE) $(AM_MAKEFLAGS) \
-	  top_distdir="$(top_distdir)" distdir="$(distdir)" \
-	  dist-hook
 check-am: all-am
-check: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) check-am
+check: check-am
 all-am: Makefile $(LTLIBRARIES)
 installdirs:
-install: $(BUILT_SOURCES)
-	$(MAKE) $(AM_MAKEFLAGS) install-am
+install: install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -591,7 +638,6 @@ install-strip:
 mostlyclean-generic:
 
 clean-generic:
-	-test -z "$(CLEANFILES)" || rm -f $(CLEANFILES)
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
@@ -599,7 +645,6 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
-	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
@@ -652,29 +697,17 @@ ps-am:
 uninstall-am: uninstall-info-am
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLTLIBRARIES ctags dist-hook \
-	distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-exec install-exec-am install-info \
-	install-info-am install-man install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags uninstall uninstall-am uninstall-info-am
+	clean-libtool clean-noinstLTLIBRARIES ctags distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-exec \
+	install-exec-am install-info install-info-am install-man \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags uninstall uninstall-am \
+	uninstall-info-am
 
-
-totem.c: totem.defs totem.override
-	( cd $(srcdir) && $(PYGTK_CODEGEN) \
-		--register $(PYGTK_DEFSDIR)/gtk-types.defs \
-		--override $*.override \
-		--prefix py$* $(<F) ) > $@ 
-
-regenerate-python-binding:
-	$(PYGTK_H2DEF) $(sort $(BINDING_HEADERS_SRCDIR) $(BINDING_HEADERS_BUILDDIR)) > totem.defs.new
-
-dist-hook:
-	cd $(distdir); rm -f $(BUILT_SOURCES)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

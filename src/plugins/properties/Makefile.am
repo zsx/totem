@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/properties
 plugin_LTLIBRARIES = libmovie-properties.la
@@ -24,7 +24,6 @@ common_defines = \
 
 libmovie_properties_la_SOURCES = totem-movie-properties.c
 libmovie_properties_la_LDFLAGS = $(modules_flags)
-libmovie_properties_la_LIBADD = libbaconvideowidgetproperties.la
 libmovie_properties_la_CPPFLAGS = $(common_defines)
 
 libmovie_properties_la_CFLAGS = \
@@ -32,9 +31,15 @@ libmovie_properties_la_CFLAGS = \
 	$(WARN_CFLAGS)		\
 	$(DBUS_CFLAGS)		\
 	$(AM_CFLAGS)		\
-	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
+
+libmovie_properties_la_LIBADD = \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	libbaconvideowidgetproperties.la	\
+	$(DEPENDENCY_LIBS)
 
 libbaconvideowidgetproperties_la_SOURCES =		\
 	bacon-video-widget-properties.c			\
@@ -48,7 +53,8 @@ libbaconvideowidgetproperties_la_CFLAGS =	\
 	-I$(top_srcdir)/			\
 	-I$(top_srcdir)/src			\
 	-I$(top_srcdir)/src/backend		\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
 
 EXTRA_DIST = $(plugin_in_files)
 

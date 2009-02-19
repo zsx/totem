@@ -17,8 +17,8 @@ totem_python_la_LIBADD = \
 
 totem_python_la_CFLAGS = \
 	-I$(top_srcdir)			\
-	-I$(top_srcdir)/src		\
-	-I$(top_srcdir)/src/plugins	\
+	-I$(top_srcdir)/src/libtotem		\
+	-I$(top_srcdir)/src/libtotem/plugins \
 	$(DEPENDENCY_CFLAGS)		\
 	$(PYGTK_CFLAGS)			\
 	$(PYTHON_CFLAGS)		\

@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/sidebar-test
 plugin_LTLIBRARIES = libsidebar-test.la
@@ -32,8 +32,13 @@ libsidebar_test_la_CFLAGS = \
 	$(DBUS_CFLAGS)		\
 	$(AM_CFLAGS)		\
 	-I$(top_srcdir)/	\
-	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
+
+libsidebar_test_la_LIBADD = \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	$(DEPENDENCY_LIBS)
 
 EXTRA_DIST = $(plugin_in_files)
 

@@ -732,7 +732,7 @@ PACKAGE_VERSION='2.25.3'
 PACKAGE_STRING='totem 2.25.3'
 PACKAGE_BUGREPORT='http://bugzilla.gnome.org/enter_bug.cgi?product=totem'
 
-ac_unique_file="src/totem.c"
+ac_unique_file="src/main.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -26955,7 +26955,7 @@ fi
 
 
 
-ac_config_files="$ac_config_files Makefile totem.spec lib/Makefile src/Makefile src/plugins/Makefile src/plugins/bemused/Makefile src/plugins/screensaver/Makefile src/plugins/screenshot/Makefile src/plugins/ontop/Makefile src/plugins/galago/Makefile src/plugins/gromit/Makefile src/plugins/lirc/Makefile src/plugins/media-player-keys/Makefile src/plugins/mythtv/Makefile src/plugins/opensubtitles/Makefile src/plugins/properties/Makefile src/plugins/sidebar-test/Makefile src/plugins/skipto/Makefile src/plugins/sample-python/Makefile src/plugins/sample-vala/Makefile src/plugins/thumbnail/Makefile src/plugins/totem/Makefile src/plugins/tracker/Makefile src/plugins/youtube/Makefile src/plugins/pythonconsole/Makefile src/plugins/publish/Makefile src/plugins/jamendo/Makefile src/backend/Makefile browser-plugin/Makefile data/Makefile data/totem.desktop.in.in data/icons/Makefile data/icons/16x16/Makefile data/icons/22x22/Makefile data/icons/24x24/Makefile data/icons/32x32/Makefile data/icons/48x48/Makefile data/icons/scalable/Makefile po/Makefile.in help/Makefile help/bg/Makefile bindings/Makefile bindings/python/Makefile bindings/vala/Makefile"
+ac_config_files="$ac_config_files Makefile totem.spec lib/Makefile src/Makefile src/libtotem/Makefile src/libtotem/plugins/Makefile src/plugins/Makefile src/plugins/bemused/Makefile src/plugins/screensaver/Makefile src/plugins/screenshot/Makefile src/plugins/ontop/Makefile src/plugins/galago/Makefile src/plugins/gromit/Makefile src/plugins/lirc/Makefile src/plugins/media-player-keys/Makefile src/plugins/mythtv/Makefile src/plugins/opensubtitles/Makefile src/plugins/properties/Makefile src/plugins/sidebar-test/Makefile src/plugins/skipto/Makefile src/plugins/sample-python/Makefile src/plugins/sample-vala/Makefile src/plugins/thumbnail/Makefile src/plugins/totem/Makefile src/plugins/tracker/Makefile src/plugins/youtube/Makefile src/plugins/pythonconsole/Makefile src/plugins/publish/Makefile src/plugins/jamendo/Makefile src/backend/Makefile browser-plugin/Makefile data/Makefile data/totem.desktop.in.in data/icons/Makefile data/icons/16x16/Makefile data/icons/22x22/Makefile data/icons/24x24/Makefile data/icons/32x32/Makefile data/icons/48x48/Makefile data/icons/scalable/Makefile po/Makefile.in help/Makefile help/bg/Makefile bindings/Makefile bindings/python/Makefile bindings/vala/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -27692,6 +27692,8 @@ do
     "totem.spec") CONFIG_FILES="$CONFIG_FILES totem.spec" ;;
     "lib/Makefile") CONFIG_FILES="$CONFIG_FILES lib/Makefile" ;;
     "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/libtotem/Makefile") CONFIG_FILES="$CONFIG_FILES src/libtotem/Makefile" ;;
+    "src/libtotem/plugins/Makefile") CONFIG_FILES="$CONFIG_FILES src/libtotem/plugins/Makefile" ;;
     "src/plugins/Makefile") CONFIG_FILES="$CONFIG_FILES src/plugins/Makefile" ;;
     "src/plugins/bemused/Makefile") CONFIG_FILES="$CONFIG_FILES src/plugins/bemused/Makefile" ;;
     "src/plugins/screensaver/Makefile") CONFIG_FILES="$CONFIG_FILES src/plugins/screensaver/Makefile" ;;

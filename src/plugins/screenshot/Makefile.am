@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/screenshot
 uidir = $(plugindir)
@@ -43,8 +43,14 @@ libscreenshot_la_CFLAGS = 		\
 	$(AM_CFLAGS)			\
 	-I$(top_srcdir)/		\
 	-I$(top_srcdir)/src		\
-	-I$(top_srcdir)/src/plugins	\
+	-I$(top_srcdir)/src/libtotem		\
+	-I$(top_srcdir)/src/libtotem/plugins	\
 	-I$(srcdir)/
+
+libscreenshot_la_LIBADD = \
+	$(top_builddir)/src/backend/libbaconvideowidget.la\
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(DEPENDENCY_LIBS) 
 
 EXTRA_DIST = $(plugin_in_files) $(ui_DATA)
 

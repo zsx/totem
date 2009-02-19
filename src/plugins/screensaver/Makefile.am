@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/screensaver
 plugin_LTLIBRARIES = libscreensaver.la
@@ -22,7 +22,6 @@ common_defines = \
 
 libscreensaver_la_SOURCES = totem-screensaver.c
 libscreensaver_la_LDFLAGS = $(modules_flags)
-libscreensaver_la_LIBADD = $(top_builddir)/lib/libtotemscrsaver.la
 libscreensaver_la_CPPFLAGS = $(common_defines)
 
 libscreensaver_la_CFLAGS = \
@@ -34,7 +33,14 @@ libscreensaver_la_CFLAGS = \
 	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/lib	\
 	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
+
+libscreensaver_la_LIBADD = \
+	$(top_builddir)/lib/libtotemscrsaver.la \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	$(DEPENDENCY_LIBS)
 
 EXTRA_DIST = $(plugin_in_files)
 

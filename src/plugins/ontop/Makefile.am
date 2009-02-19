@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/ontop
 plugin_LTLIBRARIES = libontop.la
@@ -22,7 +22,6 @@ common_defines = \
 
 libontop_la_SOURCES = totem-ontop.c
 libontop_la_LDFLAGS = $(modules_flags)
-libontop_la_LIBADD = $(top_builddir)/lib/libtotemscrsaver.la
 libontop_la_CPPFLAGS = $(common_defines)
 
 libontop_la_CFLAGS = \
@@ -33,7 +32,14 @@ libontop_la_CFLAGS = \
 	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/lib	\
 	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
+
+libontop_la_LIBADD = \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	$(top_builddir)/lib/libtotemscrsaver.la \
+	$(DEPENDENCY_LIBS)
 
 EXTRA_DIST = $(plugin_in_files)
 

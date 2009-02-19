@@ -33,8 +33,8 @@ libtgp_la_CFLAGS = \
 	$(AM_CFLAGS)		\
 	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/lib	\
-	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
 
 EXTRA_DIST = $(plugin_in_files)
 

@@ -29,25 +29,25 @@
 
 G_BEGIN_DECLS
 
-const char *	totem_dot_dir			(void);
-const char *	totem_data_dot_dir		(void);
-char *		totem_pictures_dir		(void);
-char *		totem_create_full_path		(const char *path);
-GMount *	totem_get_mount_for_media	(const char *uri);
-gboolean	totem_playing_dvd		(const char *uri);
-gboolean	totem_uri_is_subtitle		(const char *uri);
-gboolean	totem_is_special_mrl		(const char *uri);
-gboolean	totem_is_block_device		(const char *uri);
-void		totem_setup_file_monitoring	(Totem *totem);
-void		totem_setup_file_filters	(void);
-void		totem_destroy_file_filters	(void);
-char *		totem_uri_get_subtitle_uri	(const char *uri);
-char *		totem_uri_escape_for_display	(const char *uri);
-GSList *	totem_add_files			(GtkWindow *parent,
+G_MODULE_EXPORT const char *	totem_dot_dir			(void);
+G_MODULE_EXPORT const char *	totem_data_dot_dir		(void);
+G_MODULE_EXPORT char *		totem_pictures_dir		(void);
+G_MODULE_EXPORT char *		totem_create_full_path		(const char *path);
+G_MODULE_EXPORT GMount *	totem_get_mount_for_media	(const char *uri);
+G_MODULE_EXPORT gboolean	totem_playing_dvd		(const char *uri);
+G_MODULE_EXPORT gboolean	totem_uri_is_subtitle		(const char *uri);
+G_MODULE_EXPORT gboolean	totem_is_special_mrl		(const char *uri);
+G_MODULE_EXPORT gboolean	totem_is_block_device		(const char *uri);
+G_MODULE_EXPORT void		totem_setup_file_monitoring	(Totem *totem);
+G_MODULE_EXPORT void		totem_setup_file_filters	(void);
+G_MODULE_EXPORT void		totem_destroy_file_filters	(void);
+G_MODULE_EXPORT char *		totem_uri_get_subtitle_uri	(const char *uri);
+G_MODULE_EXPORT char *		totem_uri_escape_for_display	(const char *uri);
+G_MODULE_EXPORT GSList *	totem_add_files			(GtkWindow *parent,
 						 const char *path);
-char *		totem_add_subtitle		(GtkWindow *parent, 
+G_MODULE_EXPORT char *		totem_add_subtitle		(GtkWindow *parent, 
 						 const char *path);
-void		totem_add_pictures_dir		(GtkWidget *chooser);
+G_MODULE_EXPORT void		totem_add_pictures_dir		(GtkWidget *chooser);
 
 G_END_DECLS
 

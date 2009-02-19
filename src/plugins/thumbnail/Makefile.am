@@ -1,4 +1,4 @@
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugindir = $(PLUGINDIR)/thumbnail
 plugin_LTLIBRARIES = libthumbnail.la
@@ -22,7 +22,6 @@ common_defines = \
 
 libthumbnail_la_SOURCES = totem-thumbnail.c
 libthumbnail_la_LDFLAGS = $(modules_flags)
-libthumbnail_la_LIBADD = 
 libthumbnail_la_CPPFLAGS = $(common_defines)
 
 libthumbnail_la_CFLAGS = \
@@ -32,9 +31,14 @@ libthumbnail_la_CFLAGS = \
 	$(AM_CFLAGS)		\
 	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/lib	\
-	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
 
+libthumbnail_la_LIBADD = \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	$(top_builddir)/lib/libtotemscrsaver.la \
+	$(DEPENDENCY_LIBS)
 EXTRA_DIST = $(plugin_in_files)
 
 CLEANFILES = $(plugin_DATA) $(BUILT_SOURCES)

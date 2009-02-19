@@ -13,7 +13,7 @@ headers
 #include "totem-cell-renderer-video.h"
 #include "totem-video-list.h"
 #include "totem-disc.h"
-#include "plugins/totem-plugin.h"
+#include "totem-plugin.h"
 
 void pytotem_register_classes (PyObject *d);
 void pytotem_add_constants (PyObject *module, const gchar *strip_prefix);

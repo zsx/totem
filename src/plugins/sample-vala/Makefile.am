@@ -7,7 +7,7 @@ plugin_in_files = sample-vala.totem-plugin.in
 %.totem-plugin: %.totem-plugin.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
 
 if ENABLE_VALA
-modules_flags = -export_dynamic -avoid-version -module
+modules_flags = -no-undefined -export_dynamic -avoid-version -module
 
 plugin_LTLIBRARIES = libsample-vala.la
 # override to _not_ install the test plugins
@@ -38,9 +38,13 @@ libsample_vala_la_CFLAGS = \
 	$(AM_CFLAGS)		\
 	-I$(top_srcdir)/	\
 	-I$(top_srcdir)/lib	\
-	-I$(top_srcdir)/src	\
-	-I$(top_srcdir)/src/plugins
+	-I$(top_srcdir)/src/libtotem	\
+	-I$(top_srcdir)/src/libtotem/plugins
 
+libsample_vala_la_LIBADD = \
+	$(top_builddir)/src/libtotem/libtotem.la \
+	$(top_builddir)/src/backend/libbaconvideowidget.la \
+	$(DEPENDENCY_LIBS)
 endif
 
 EXTRA_DIST = $(plugin_in_files) totem-sample-vala-plugin.vala

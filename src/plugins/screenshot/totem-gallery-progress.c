@@ -36,6 +36,10 @@
 
 #include "totem-gallery-progress.h"
 
+#ifdef G_OS_WIN32
+//#include <windows.h>
+#endif
+
 static void totem_gallery_progress_finalize (GObject *object);
 static void dialog_response_callback (GtkDialog *dialog, gint response_id, TotemGalleryProgress *self);
 
@@ -125,7 +129,11 @@ static void
 dialog_response_callback (GtkDialog *dialog, gint response_id, TotemGalleryProgress *self)
 {
 	/* Cancel the operation by killing the process */
+#ifdef G_OS_WIN32
+//	TerminateProcess(self->priv->child_pid, 1);
+#else
 	kill (self->priv->child_pid, SIGINT);
+#endif
 
 	/* Unlink the output file, just in case (race condition) it's already been created */
 	g_unlink (self->priv->output_filename);

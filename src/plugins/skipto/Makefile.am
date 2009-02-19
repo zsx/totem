@@ -40,13 +40,13 @@ libskipto_la_CFLAGS = 			\
 	$(AM_CFLAGS)			\
 	-I$(top_srcdir)/		\
 	-I$(top_srcdir)/lib		\
-	-I$(top_srcdir)/src		\
-	-I$(top_srcdir)/src/plugins	\
+	-I$(top_srcdir)/src/libtotem		\
+	-I$(top_srcdir)/src/libtotem/plugins	\
 	-I$(srcdir)/
 
 libskipto_la_LIBADD = \
 	$(top_builddir)/src/backend/libbaconvideowidget.la\
-	$(top_builddir)/src/libtotem.la \
+	$(top_builddir)/src/libtotem/libtotem.la \
 	$(GST_LIBS)		\
 	$(EXTRA_BACKEND_LIBS)	\
 	$(MISSING_PLUGINS_LIBS) \
