@@ -43,7 +43,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
-#include <gdk/gdkx.h>
+#ifdef GDK_WINDOWING_X11
+  #include <gdk/gdkx.h>
+#endif
 #include <gconf/gconf-client.h>
 
 #include "totem-interface.h"
@@ -277,6 +279,7 @@ totem_interface_get_full_path (const char *name)
 	return filename;
 }
 
+#ifdef GDK_WINDOWING_X11 /* There's no GtkPlug on anything but X11 */
 static GdkWindow *
 totem_gtk_plug_get_toplevel (GtkPlug *plug)
 {
@@ -308,11 +311,13 @@ totem_gtk_plug_get_toplevel (GtkPlug *plug)
 	}
 	while (TRUE);
 }
+#endif
 
 void
 totem_interface_set_transient_for (GtkWindow *window, GtkWindow *parent)
 {
 	if (GTK_IS_PLUG (parent)) {
+#ifdef GDK_WINDOWING_X11
 		GdkWindow *toplevel;
 
 		gtk_widget_realize (GTK_WIDGET (window));
@@ -322,6 +327,7 @@ totem_interface_set_transient_for (GtkWindow *window, GtkWindow *parent)
 				(GTK_WIDGET (window)->window, toplevel);
 			g_object_unref (toplevel);
 		}
+#endif
 	} else {
 		gtk_window_set_transient_for (GTK_WINDOW (window),
 				GTK_WINDOW (parent));
