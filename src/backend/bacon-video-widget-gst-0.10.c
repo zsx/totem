@@ -57,11 +57,20 @@
 #include <math.h>
 
 /* gtk+/gnome */
-#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
 #include <gconf/gconf-client.h>
+
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#define GDK_WINDOWING_NATIVE(x) GDK_WINDOWING_X11(x)
+#elif defined (GDK_WINDOWING_WIN32)
+#include <gdk/gdkwin32.h>
+#define GDK_WINDOWING_NATIVE(x) GDK_WINDOWING_WIN32(x)
+#else
+#error unimplemented
+#endif
 
 #include "bacon-video-widget.h"
 #include "bacon-video-widget-common.h"
@@ -628,8 +637,8 @@ bacon_video_widget_expose_event (GtkWidget *widget, GdkEventExpose *event)
 {
   BaconVideoWidget *bvw = BACON_VIDEO_WIDGET (widget);
   GstXOverlay *xoverlay;
+  GdkNativeWindow window;
   gboolean draw_logo;
-  XID window;
 
   if (event && event->count > 0)
     return TRUE;
@@ -645,10 +654,10 @@ bacon_video_widget_expose_event (GtkWidget *widget, GdkEventExpose *event)
 
   g_mutex_unlock (bvw->priv->lock);
 
-  window = GDK_WINDOW_XWINDOW (bvw->priv->video_window);
+  window = GDK_WINDOWING_NATIVE (bvw->priv->video_window);
 
   if (xoverlay != NULL && GST_IS_X_OVERLAY (xoverlay))
-    gst_x_overlay_set_xwindow_id (xoverlay, window);
+    gst_x_overlay_set_xwindow_id (xoverlay, (gulong)window);
 
   /* Start with a nice black canvas */
   gdk_draw_rectangle (widget->window, widget->style->black_gc, TRUE, 0, 0,
@@ -4907,7 +4916,7 @@ bvw_element_msg_sync (GstBus *bus, GstMessage *msg, gpointer data)
   /* This only gets sent if we haven't set an ID yet. This is our last
    * chance to set it before the video sink will create its own window */
   if (gst_structure_has_name (msg->structure, "prepare-xwindow-id")) {
-    XID window;
+    GdkNativeWindow window;
 
     GST_DEBUG ("Handling sync prepare-xwindow-id message");
 
@@ -4918,8 +4927,8 @@ bvw_element_msg_sync (GstBus *bus, GstMessage *msg, gpointer data)
     g_return_if_fail (bvw->priv->xoverlay != NULL);
     g_return_if_fail (bvw->priv->video_window != NULL);
 
-    window = GDK_WINDOW_XWINDOW (bvw->priv->video_window);
-    gst_x_overlay_set_xwindow_id (bvw->priv->xoverlay, window);
+    window = GDK_WINDOWING_NATIVE (bvw->priv->video_window);
+    gst_x_overlay_set_xwindow_id (bvw->priv->xoverlay, (gulong)window);
   }
 }
 
