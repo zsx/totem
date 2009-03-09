@@ -4999,7 +4999,11 @@ bacon_video_widget_new (int width, int height,
       cb_gconf, bvw, NULL, NULL);
 
   if (type == BVW_USE_TYPE_VIDEO || type == BVW_USE_TYPE_AUDIO) {
+#ifdef G_OS_WIN32
+    audio_sink = gst_element_factory_make ("directsoundsink", "audio-sink");
+#else
     audio_sink = gst_element_factory_make ("gconfaudiosink", "audio-sink");
+#endif
     if (audio_sink == NULL) {
       g_warning ("Could not create element 'gconfaudiosink'");
       /* Try to fallback on autoaudiosink */
@@ -5019,12 +5023,16 @@ bacon_video_widget_new (int width, int height,
       GST_INFO ("forcing ximagesink, image size only %dx%d", width, height);
       video_sink = gst_element_factory_make ("ximagesink", "video-sink");
     } else {
+#ifdef G_OS_WIN32
+      video_sink = gst_element_factory_make("dshowvideosink", "video-sink");
+#else
       video_sink = gst_element_factory_make ("gconfvideosink", "video-sink");
       if (video_sink == NULL) {
         g_warning ("Could not create element 'gconfvideosink'");
         /* Try to fallback on ximagesink */
         video_sink = gst_element_factory_make ("ximagesink", "video-sink");
       }
+#endif
     }
 /* FIXME: April fool's day puzzle */
 #if 0
