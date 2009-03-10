@@ -794,7 +794,9 @@ int main (int argc, char *argv[])
 	}
 
 	if (print_progress) {
+#ifndef G_OS_WIN32
 		fcntl (fileno (stdout), F_SETFL, O_NONBLOCK);
+#endif
 		setbuf (stdout, NULL);
 	}
 

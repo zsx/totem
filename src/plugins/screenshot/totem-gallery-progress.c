@@ -126,7 +126,11 @@ dialog_response_callback (GtkDialog *dialog, gint response_id, TotemGalleryProgr
 {
 	if (response_id != GTK_RESPONSE_OK) {
 		/* Cancel the operation by killing the process */
+#ifndef G_OS_WIN32
 		kill (self->priv->child_pid, SIGINT);
+#else
+#warning unimplemented
+#endif
 
 		/* Unlink the output file, just in case (race condition) it's already been created */
 		g_unlink (self->priv->output_filename);
@@ -220,7 +224,9 @@ totem_gallery_progress_run (TotemGalleryProgress *self, gint stdout_fd)
 {
 	GIOChannel *channel;
 
+#ifndef G_OS_WIN32
 	fcntl (stdout_fd, F_SETFL, O_NONBLOCK);
+#endif
 
 	/* Watch the output from totem-video-thumbnailer */
 	channel = g_io_channel_unix_new (stdout_fd);
