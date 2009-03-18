@@ -56,8 +56,13 @@ typedef struct
 	gchar **filenames;
 } TotemCmdLineOptions;
 
+#if defined(_MSC_VER) && ! defined(LIBTOTEM_EXPORT)
+__declspec(dllimport) const GOptionEntry options[];
+__declspec(dllimport) TotemCmdLineOptions optionstate;
+#else
 extern const GOptionEntry options[];
 extern TotemCmdLineOptions optionstate;
+#endif
 
 void totem_options_process_early (Totem *totem,
 	const TotemCmdLineOptions* options);
