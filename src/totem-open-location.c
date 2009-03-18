@@ -32,9 +32,18 @@
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <string.h>
+
+#ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
+#endif
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
+#ifdef HAVE_SYS_STAT_H
 #include <sys/stat.h>
+#endif
 
 #include "totem.h"
 #include "totem-open-location.h"

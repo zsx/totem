@@ -33,7 +33,11 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <string.h>
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <sys/types.h>
 #ifdef G_OS_UNIX
   #include <sys/socket.h>
@@ -42,6 +46,11 @@
 #include <errno.h>
 
 #include "bacon-message-connection.h"
+
+#ifdef _MSC_VER
+#include <Winsock2.h>
+#include "msvc_compat.h"
+#endif
 
 #ifndef UNIX_PATH_MAX
 #define UNIX_PATH_MAX 108

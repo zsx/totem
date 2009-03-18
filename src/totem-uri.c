@@ -25,14 +25,28 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <string.h>
+
+#ifdef HAVE_SYS_TYPES_H
 #include <sys/types.h>
+#endif
+
+#ifdef HAVE_SYS_STAT_H
 #include <sys/stat.h>
+#endif
+
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <gio/gio.h>
 
 #include "totem-mime-types.h"
 #include "totem-uri.h"
 #include "totem-private.h"
+
+#ifdef _MSC_VER
+#include "msvc_compat.h"
+#endif
 
 static GtkFileFilter *filter_all = NULL;
 static GtkFileFilter *filter_subs = NULL;

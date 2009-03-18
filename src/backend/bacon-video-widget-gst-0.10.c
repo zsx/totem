@@ -50,7 +50,10 @@
 #include <gst/tag/tag.h>
 
 /* system */
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+
 #include <time.h>
 #include <string.h>
 #include <stdio.h>
