@@ -46,6 +46,10 @@
 
 #include "debug.h"
 
+#ifdef _MSC_VER
+#include "msvc_compat.h"
+#endif
+
 /* Callback functions for GtkBuilder */
 G_MODULE_EXPORT void checkbutton1_toggled_cb (GtkToggleButton *togglebutton, Totem *totem);
 G_MODULE_EXPORT void checkbutton2_toggled_cb (GtkToggleButton *togglebutton, Totem *totem);
