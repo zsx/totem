@@ -27,7 +27,7 @@
 
 #include <glib.h>
 
-void totem_resources_monitor_start	(const char *input,
+G_MODULE_EXPORT void totem_resources_monitor_start	(const char *input,
 					 gint wall_clock_time);
-void totem_resources_monitor_stop	(void);
+G_MODULE_EXPORT void totem_resources_monitor_stop	(void);
 

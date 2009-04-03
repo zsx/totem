@@ -112,13 +112,13 @@ typedef enum {
 	TOTEM_REMOTE_SETTING_REPEAT
 } TotemRemoteSetting;
 
-GType totem_remote_command_get_type	(void);
-GQuark totem_remote_command_quark	(void);
+G_MODULE_EXPORT GType totem_remote_command_get_type	(void);
+G_MODULE_EXPORT GQuark totem_remote_command_quark	(void);
 #define TOTEM_TYPE_REMOTE_COMMAND	(totem_remote_command_get_type())
 #define TOTEM_REMOTE_COMMAND		totem_remote_command_quark ()
 
-GType totem_disc_media_type_get_type	(void);
-GQuark totem_disc_media_type_quark	(void);
+G_MODULE_EXPORT GType totem_disc_media_type_get_type	(void);
+G_MODULE_EXPORT GQuark totem_disc_media_type_quark	(void);
 #define TOTEM_TYPE_DISC_MEDIA_TYPE	(totem_disc_media_type_get_type())
 #define TOTEM_DISC_MEDIA_TYPE		totem_disc_media_type_quark ()
 
@@ -162,103 +162,103 @@ typedef struct {
 						 guint track_num);
 } TotemObjectClass;
 
-GType	totem_object_get_type			(void);
-void    totem_object_plugins_init		(TotemObject *totem);
-void    totem_object_plugins_shutdown		(void);
-void	totem_file_opened			(TotemObject *totem,
-						 const char *mrl);
-void	totem_file_closed			(TotemObject *totem);
-void	totem_metadata_updated			(TotemObject *totem,
-						 const char *artist,
-						 const char *title,
-						 const char *album,
-						 guint track_num);
+G_MODULE_EXPORT GType	totem_object_get_type			(void);
+G_MODULE_EXPORT void    totem_object_plugins_init		(TotemObject *totem);
+G_MODULE_EXPORT void    totem_object_plugins_shutdown		(void);
+G_MODULE_EXPORT void	totem_file_opened			(TotemObject *totem,
+													 const char *mrl);
+G_MODULE_EXPORT void	totem_file_closed			(TotemObject *totem);
+G_MODULE_EXPORT void	totem_metadata_updated			(TotemObject *totem,
+														 const char *artist,
+														 const char *title,
+														 const char *album,
+														 guint track_num);
 
-void	totem_action_exit			(Totem *totem) G_GNUC_NORETURN;
-void	totem_action_play			(Totem *totem);
-void	totem_action_stop			(Totem *totem);
-void	totem_action_play_pause			(Totem *totem);
-void	totem_action_pause			(Totem *totem);
-void	totem_action_fullscreen_toggle		(Totem *totem);
-void	totem_action_fullscreen			(Totem *totem, gboolean state);
-void	totem_action_next			(Totem *totem);
-void	totem_action_previous			(Totem *totem);
-void	totem_action_seek_time			(Totem *totem, gint64 sec);
-void	totem_action_seek_relative		(Totem *totem, gint64 offset);
-void	totem_action_volume_relative		(Totem *totem, double off_pct);
-void	totem_action_volume_toggle_mute		(Totem *totem);
-gboolean totem_action_set_mrl			(Totem *totem,
-						 const char *mrl,
-						 const char *subtitle);
-void	totem_action_set_mrl_and_play		(Totem *totem,
-						 const char *mrl, 
-						 const char *subtitle);
+G_MODULE_EXPORT void	totem_action_exit			(Totem *totem) G_GNUC_NORETURN;
+G_MODULE_EXPORT void	totem_action_play			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_stop			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_play_pause			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_pause			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_fullscreen_toggle		(Totem *totem);
+G_MODULE_EXPORT void	totem_action_fullscreen			(Totem *totem, gboolean state);
+G_MODULE_EXPORT void	totem_action_next			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_previous			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_seek_time			(Totem *totem, gint64 sec);
+G_MODULE_EXPORT void	totem_action_seek_relative		(Totem *totem, gint64 offset);
+G_MODULE_EXPORT void	totem_action_volume_relative		(Totem *totem, double off_pct);
+G_MODULE_EXPORT void	totem_action_volume_toggle_mute		(Totem *totem);
+G_MODULE_EXPORT gboolean totem_action_set_mrl			(Totem *totem,
+														 const char *mrl,
+														 const char *subtitle);
+G_MODULE_EXPORT void	totem_action_set_mrl_and_play		(Totem *totem,
+															 const char *mrl, 
+															 const char *subtitle);
 
-gboolean totem_action_set_mrl_with_warning	(Totem *totem,
-						 const char *mrl,
-						 const char *subtitle,
-						 gboolean warn);
+G_MODULE_EXPORT gboolean totem_action_set_mrl_with_warning	(Totem *totem,
+															 const char *mrl,
+															 const char *subtitle,
+															 gboolean warn);
 
-void	totem_action_play_media			(Totem *totem,
-						 TotemDiscMediaType type,
-						 const char *device);
+G_MODULE_EXPORT void	totem_action_play_media			(Totem *totem,
+														 TotemDiscMediaType type,
+														 const char *device);
 
-void	totem_action_toggle_aspect_ratio	(Totem *totem);
-void	totem_action_set_aspect_ratio		(Totem *totem, int ratio);
-int	totem_action_get_aspect_ratio		(Totem *totem);
-void	totem_action_toggle_controls		(Totem *totem);
-void	totem_action_next_angle			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_toggle_aspect_ratio	(Totem *totem);
+G_MODULE_EXPORT void	totem_action_set_aspect_ratio		(Totem *totem, int ratio);
+G_MODULE_EXPORT int	totem_action_get_aspect_ratio		(Totem *totem);
+G_MODULE_EXPORT void	totem_action_toggle_controls		(Totem *totem);
+G_MODULE_EXPORT void	totem_action_next_angle			(Totem *totem);
 
-void	totem_action_set_scale_ratio		(Totem *totem, gfloat ratio);
-void    totem_action_error                      (const char *title,
-						 const char *reason,
-						 Totem *totem);
-void    totem_action_play_media_device		(Totem *totem,
-						 const char *device);
+G_MODULE_EXPORT void	totem_action_set_scale_ratio		(Totem *totem, gfloat ratio);
+G_MODULE_EXPORT void    totem_action_error                      (const char *title,
+																 const char *reason,
+																 Totem *totem);
+G_MODULE_EXPORT void    totem_action_play_media_device		(Totem *totem,
+															 const char *device);
 
-gboolean totem_is_fullscreen			(Totem *totem);
-gboolean totem_is_playing			(Totem *totem);
-gboolean totem_is_paused			(Totem *totem);
-gboolean totem_is_seekable			(Totem *totem);
-GtkWindow *totem_get_main_window		(Totem *totem);
-GtkUIManager *totem_get_ui_manager		(Totem *totem);
-GtkWidget *totem_get_video_widget		(Totem *totem);
-char *totem_get_video_widget_backend_name	(Totem *totem);
+G_MODULE_EXPORT gboolean totem_is_fullscreen			(Totem *totem);
+G_MODULE_EXPORT gboolean totem_is_playing			(Totem *totem);
+G_MODULE_EXPORT gboolean totem_is_paused			(Totem *totem);
+G_MODULE_EXPORT gboolean totem_is_seekable			(Totem *totem);
+G_MODULE_EXPORT GtkWindow *totem_get_main_window		(Totem *totem);
+G_MODULE_EXPORT GtkUIManager *totem_get_ui_manager		(Totem *totem);
+G_MODULE_EXPORT GtkWidget *totem_get_video_widget		(Totem *totem);
+G_MODULE_EXPORT char *totem_get_video_widget_backend_name	(Totem *totem);
 
 /* Current media information */
-char *	totem_get_short_title			(Totem *totem);
-gint64	totem_get_current_time			(Totem *totem);
+G_MODULE_EXPORT char *	totem_get_short_title			(Totem *totem);
+G_MODULE_EXPORT gint64	totem_get_current_time			(Totem *totem);
 
 /* Playlist handling */
-guint	totem_get_playlist_length		(Totem *totem);
-void	totem_action_set_playlist_index		(Totem *totem,
-						 guint index);
-int	totem_get_playlist_pos			(Totem *totem);
-char *	totem_get_title_at_playlist_pos		(Totem *totem,
-						 guint index);
-void totem_add_to_playlist_and_play		(Totem *totem,
-						 const char *uri,
-						 const char *display_name,
-						 gboolean add_to_recent);
-char *  totem_get_current_mrl			(Totem *totem);
-void	totem_set_current_subtitle		(Totem *totem,
-						 const char *subtitle_uri);
+G_MODULE_EXPORT guint	totem_get_playlist_length		(Totem *totem);
+G_MODULE_EXPORT void	totem_action_set_playlist_index		(Totem *totem,
+															 guint index);
+G_MODULE_EXPORT int	totem_get_playlist_pos			(Totem *totem);
+G_MODULE_EXPORT char *	totem_get_title_at_playlist_pos		(Totem *totem,
+															 guint index);
+G_MODULE_EXPORT void totem_add_to_playlist_and_play		(Totem *totem,
+														 const char *uri,
+														 const char *display_name,
+														 gboolean add_to_recent);
+G_MODULE_EXPORT char *  totem_get_current_mrl			(Totem *totem);
+G_MODULE_EXPORT void	totem_set_current_subtitle		(Totem *totem,
+														 const char *subtitle_uri);
 /* Sidebar handling */
-void    totem_add_sidebar_page			(Totem *totem,
-						 const char *page_id,
-						 const char *title,
-						 GtkWidget *main_widget);
-void    totem_remove_sidebar_page		(Totem *totem,
-						 const char *page_id);
+G_MODULE_EXPORT void    totem_add_sidebar_page			(Totem *totem,
+														 const char *page_id,
+														 const char *title,
+														 GtkWidget *main_widget);
+G_MODULE_EXPORT void    totem_remove_sidebar_page		(Totem *totem,
+														 const char *page_id);
 
 /* Remote actions */
-void    totem_action_remote			(Totem *totem,
-						 TotemRemoteCommand cmd,
-						 const char *url);
-void	totem_action_remote_set_setting		(Totem *totem,
-						 TotemRemoteSetting setting,
-						 gboolean value);
-gboolean totem_action_remote_get_setting	(Totem *totem,
-						 TotemRemoteSetting setting);
+G_MODULE_EXPORT void    totem_action_remote			(Totem *totem,
+													 TotemRemoteCommand cmd,
+													 const char *url);
+G_MODULE_EXPORT void	totem_action_remote_set_setting		(Totem *totem,
+															 TotemRemoteSetting setting,
+															 gboolean value);
+G_MODULE_EXPORT gboolean totem_action_remote_get_setting	(Totem *totem,
+															 TotemRemoteSetting setting);
 
 #endif /* __TOTEM_H__ */

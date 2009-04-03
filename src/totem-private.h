@@ -173,21 +173,21 @@ GtkWidget *totem_volume_create (void);
 #define ZOOM_IN_OFFSET 1
 #define ZOOM_OUT_OFFSET -1
 
-void	totem_action_open			(Totem *totem);
-void	totem_action_open_location		(Totem *totem);
-void	totem_action_eject			(Totem *totem);
-void	totem_action_zoom_relative		(Totem *totem, int off_pct);
-void	totem_action_zoom_reset			(Totem *totem);
-void	totem_action_show_help			(Totem *totem);
-void	totem_action_show_properties		(Totem *totem);
-gboolean totem_action_open_files		(Totem *totem, char **list);
-G_GNUC_NORETURN void totem_action_error_and_exit (const char *title, const char *reason, Totem *totem);
+G_MODULE_EXPORT void	totem_action_open			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_open_location		(Totem *totem);
+G_MODULE_EXPORT void	totem_action_eject			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_zoom_relative		(Totem *totem, int off_pct);
+G_MODULE_EXPORT void	totem_action_zoom_reset			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_show_help			(Totem *totem);
+G_MODULE_EXPORT void	totem_action_show_properties		(Totem *totem);
+G_MODULE_EXPORT gboolean totem_action_open_files		(Totem *totem, char **list);
+G_MODULE_EXPORT G_GNUC_NORETURN void totem_action_error_and_exit (const char *title, const char *reason, Totem *totem);
 
-void	show_controls				(Totem *totem, gboolean was_fullscreen);
+G_MODULE_EXPORT void	show_controls				(Totem *totem, gboolean was_fullscreen);
 
-char	*totem_setup_window			(Totem *totem);
-void	totem_callback_connect			(Totem *totem);
-void	playlist_widget_setup			(Totem *totem);
-void	video_widget_create			(Totem *totem);
+G_MODULE_EXPORT char	*totem_setup_window			(Totem *totem);
+G_MODULE_EXPORT void	totem_callback_connect			(Totem *totem);
+G_MODULE_EXPORT void	playlist_widget_setup			(Totem *totem);
+G_MODULE_EXPORT void	video_widget_create			(Totem *totem);
 
 #endif /* __TOTEM_PRIVATE_H__ */

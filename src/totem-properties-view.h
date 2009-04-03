@@ -48,12 +48,12 @@ typedef struct {
 	GtkTableClass parent;
 } TotemPropertiesViewClass;
 
-GType      totem_properties_view_get_type      (void);
-void       totem_properties_view_register_type (GTypeModule *module);
+G_MODULE_EXPORT GType      totem_properties_view_get_type      (void);
+G_MODULE_EXPORT void       totem_properties_view_register_type (GTypeModule *module);
 
-GtkWidget *totem_properties_view_new           (const char *location,
-						GtkWidget  *label);
-void       totem_properties_view_set_location  (TotemPropertiesView *view,
-						 const char         *location);
+G_MODULE_EXPORT GtkWidget *totem_properties_view_new           (const char *location,
+																GtkWidget  *label);
+G_MODULE_EXPORT void       totem_properties_view_set_location  (TotemPropertiesView *view,
+																const char         *location);
 
 #endif /* TOTEM_PROPERTIES_VIEW_H */

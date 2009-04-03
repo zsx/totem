@@ -25,16 +25,16 @@
 
 G_BEGIN_DECLS
 
-void totem_sidebar_setup (Totem *totem, gboolean visible,
-			  const char *page_id);
-void totem_sidebar_toggle (Totem *totem, gboolean state);
-void totem_sidebar_set_visibility (Totem *totem, gboolean visible);
-gboolean totem_sidebar_is_visible (Totem *totem);
-gboolean totem_sidebar_is_focused (Totem *totem);
-char *totem_sidebar_get_current_page (Totem *totem);
-void totem_sidebar_set_current_page (Totem *totem,
-				     const char *name,
-				     gboolean force_visible);
+G_MODULE_EXPORT void totem_sidebar_setup (Totem *totem, gboolean visible,
+										  const char *page_id);
+G_MODULE_EXPORT void totem_sidebar_toggle (Totem *totem, gboolean state);
+G_MODULE_EXPORT void totem_sidebar_set_visibility (Totem *totem, gboolean visible);
+G_MODULE_EXPORT gboolean totem_sidebar_is_visible (Totem *totem);
+G_MODULE_EXPORT gboolean totem_sidebar_is_focused (Totem *totem);
+G_MODULE_EXPORT char *totem_sidebar_get_current_page (Totem *totem);
+G_MODULE_EXPORT void totem_sidebar_set_current_page (Totem *totem,
+													 const char *name,
+													 gboolean force_visible);
 
 G_END_DECLS
 

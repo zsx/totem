@@ -45,10 +45,10 @@ struct BaconResizeClass {
 	GObjectClass parent_class;
 };
 
-GType bacon_resize_get_type	(void);
-BaconResize *bacon_resize_new	(GtkWidget *video_widget);
-void bacon_resize_resize	(BaconResize *resize);
-void bacon_resize_restore	(BaconResize *resize);
+G_MODULE_EXPORT GType bacon_resize_get_type	(void);
+G_MODULE_EXPORT BaconResize *bacon_resize_new	(GtkWidget *video_widget);
+G_MODULE_EXPORT void bacon_resize_resize	(BaconResize *resize);
+G_MODULE_EXPORT void bacon_resize_restore	(BaconResize *resize);
 
 G_END_DECLS
 

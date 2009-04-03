@@ -29,35 +29,35 @@ struct _EggFileFormatChooserClass
   void (*selection_changed)(EggFileFormatChooser *self);
 };
 
-GType           egg_file_format_chooser_get_type           (void) G_GNUC_CONST;
-GtkWidget*      egg_file_format_chooser_new                (void);
+G_MODULE_EXPORT GType           egg_file_format_chooser_get_type           (void) G_GNUC_CONST;
+G_MODULE_EXPORT GtkWidget*      egg_file_format_chooser_new                (void);
 
-guint           egg_file_format_chooser_add_format         (EggFileFormatChooser *self,
-                                                            guint                 parent,
-                                                            const gchar          *name,
-                                                            const gchar          *icon,
-                                                            ...) G_GNUC_NULL_TERMINATED;
-void            egg_file_format_chooser_add_pixbuf_formats (EggFileFormatChooser *self,
-                                                            guint                 parent,
-                                                            guint               **formats);
-void            egg_file_format_chooser_remove_format      (EggFileFormatChooser *self,
-                                                            guint                 format);
+G_MODULE_EXPORT guint           egg_file_format_chooser_add_format         (EggFileFormatChooser *self,
+                                                                            guint                 parent,
+                                                                            const gchar          *name,
+                                                                            const gchar          *icon,
+                                                                            ...) G_GNUC_NULL_TERMINATED;
+G_MODULE_EXPORT void            egg_file_format_chooser_add_pixbuf_formats (EggFileFormatChooser *self,
+                                                                            guint                 parent,
+                                                                            guint               **formats);
+G_MODULE_EXPORT void            egg_file_format_chooser_remove_format      (EggFileFormatChooser *self,
+                                                                            guint                 format);
 
-void            egg_file_format_chooser_set_format         (EggFileFormatChooser *self,
-                                                            guint                 format);
-guint           egg_file_format_chooser_get_format         (EggFileFormatChooser *self,
-                                                            const gchar          *filename);
+G_MODULE_EXPORT void            egg_file_format_chooser_set_format         (EggFileFormatChooser *self,
+                                                                            guint                 format);
+G_MODULE_EXPORT guint           egg_file_format_chooser_get_format         (EggFileFormatChooser *self,
+                                                                            const gchar          *filename);
 
-void            egg_file_format_chooser_set_format_data    (EggFileFormatChooser *self,
-                                                            guint                 format,
-                                                            gpointer              data,
-                                                            GDestroyNotify        destroy);
-gpointer        egg_file_format_chooser_get_format_data    (EggFileFormatChooser *self,
-                                                            guint                 format);
+G_MODULE_EXPORT void            egg_file_format_chooser_set_format_data    (EggFileFormatChooser *self,
+                                                                            guint                 format,
+                                                                            gpointer              data,
+                                                                            GDestroyNotify        destroy);
+G_MODULE_EXPORT gpointer        egg_file_format_chooser_get_format_data    (EggFileFormatChooser *self,
+                                                                            guint                 format);
 
-gchar*          egg_file_format_chooser_append_extension   (EggFileFormatChooser *self,
-                                                            const gchar          *filename,
-                                                            guint                 format);
+G_MODULE_EXPORT gchar*          egg_file_format_chooser_append_extension   (EggFileFormatChooser *self,
+                                                                            const gchar          *filename,
+                                                                            guint                 format);
 
 #ifdef G_OS_WIN32
   #define strtok_r(s,d,p) strtok(s,d)

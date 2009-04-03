@@ -80,73 +80,73 @@ struct TotemPlaylistClass {
 	void (*item_removed) (TotemPlaylist *playlist, const gchar *filename, const gchar *uri);
 };
 
-GType    totem_playlist_get_type (void);
-GtkWidget *totem_playlist_new      (void);
+G_MODULE_EXPORT GType    totem_playlist_get_type (void);
+G_MODULE_EXPORT GtkWidget *totem_playlist_new      (void);
 
 /* The application is responsible for checking that the mrl is correct
  * @display_name is if you have a preferred display string for the mrl,
  * NULL otherwise
  */
-gboolean totem_playlist_add_mrl  (TotemPlaylist *playlist,
-				  const char *mrl,
-				  const char *display_name);
-gboolean totem_playlist_add_mrl_with_cursor (TotemPlaylist *playlist,
-					     const char *mrl,
-					     const char *display_name);
+G_MODULE_EXPORT gboolean totem_playlist_add_mrl  (TotemPlaylist *playlist,
+												  const char *mrl,
+												  const char *display_name);
+G_MODULE_EXPORT gboolean totem_playlist_add_mrl_with_cursor (TotemPlaylist *playlist,
+															 const char *mrl,
+															 const char *display_name);
 
-void totem_playlist_save_current_playlist (TotemPlaylist *playlist,
-					   const char *output);
-void totem_playlist_save_current_playlist_ext (TotemPlaylist *playlist,
-					   const char *output, TotemPlParserType type);
-void totem_playlist_select_subtitle_dialog (TotemPlaylist *playlist,
-					    TotemPlaylistSelectDialog mode);
+G_MODULE_EXPORT void totem_playlist_save_current_playlist (TotemPlaylist *playlist,
+														   const char *output);
+G_MODULE_EXPORT void totem_playlist_save_current_playlist_ext (TotemPlaylist *playlist,
+															   const char *output, TotemPlParserType type);
+G_MODULE_EXPORT void totem_playlist_select_subtitle_dialog (TotemPlaylist *playlist,
+															TotemPlaylistSelectDialog mode);
 
 /* totem_playlist_clear doesn't emit the current_removed signal, even if it does
  * because the caller should know what to do after it's done with clearing */
-gboolean   totem_playlist_clear (TotemPlaylist *playlist);
-void       totem_playlist_clear_with_g_mount (TotemPlaylist *playlist,
-					      GMount *mount);
-char      *totem_playlist_get_current_mrl (TotemPlaylist *playlist,
-					   char **subtitle);
-char      *totem_playlist_get_current_title (TotemPlaylist *playlist,
-					     gboolean *custom);
-char      *totem_playlist_get_title (TotemPlaylist *playlist,
-				     guint index);
+G_MODULE_EXPORT gboolean   totem_playlist_clear (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_clear_with_g_mount (TotemPlaylist *playlist,
+															  GMount *mount);
+G_MODULE_EXPORT char      *totem_playlist_get_current_mrl (TotemPlaylist *playlist,
+														   char **subtitle);
+G_MODULE_EXPORT char      *totem_playlist_get_current_title (TotemPlaylist *playlist,
+															 gboolean *custom);
+G_MODULE_EXPORT char      *totem_playlist_get_title (TotemPlaylist *playlist,
+													 guint index);
 
-gboolean   totem_playlist_set_title (TotemPlaylist *playlist,
-				     const char *title,
-				     gboolean force);
-void       totem_playlist_set_current_subtitle (TotemPlaylist *playlist,
-						const char *subtitle_uri);
+G_MODULE_EXPORT gboolean   totem_playlist_set_title (TotemPlaylist *playlist,
+													 const char *title,
+													 gboolean force);
+G_MODULE_EXPORT void       totem_playlist_set_current_subtitle (TotemPlaylist *playlist,
+																const char *subtitle_uri);
 
 #define    totem_playlist_has_direction(playlist, direction) (direction == TOTEM_PLAYLIST_DIRECTION_NEXT ? totem_playlist_has_next_mrl (playlist) : totem_playlist_has_previous_mrl (playlist))
-gboolean   totem_playlist_has_previous_mrl (TotemPlaylist *playlist);
-gboolean   totem_playlist_has_next_mrl (TotemPlaylist *playlist);
+G_MODULE_EXPORT gboolean   totem_playlist_has_previous_mrl (TotemPlaylist *playlist);
+G_MODULE_EXPORT gboolean   totem_playlist_has_next_mrl (TotemPlaylist *playlist);
 
 #define    totem_playlist_set_direction(playlist, direction) (direction == TOTEM_PLAYLIST_DIRECTION_NEXT ? totem_playlist_set_next (playlist) : totem_playlist_set_previous (playlist))
-void       totem_playlist_set_previous (TotemPlaylist *playlist);
-void       totem_playlist_set_next (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_previous (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_next (TotemPlaylist *playlist);
 
-gboolean   totem_playlist_get_repeat (TotemPlaylist *playlist);
-void       totem_playlist_set_repeat (TotemPlaylist *playlist, gboolean repeat);
+G_MODULE_EXPORT gboolean   totem_playlist_get_repeat (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_repeat (TotemPlaylist *playlist, gboolean repeat);
 
-gboolean   totem_playlist_get_shuffle (TotemPlaylist *playlist);
-void       totem_playlist_set_shuffle (TotemPlaylist *playlist,
-				       gboolean shuffle);
+G_MODULE_EXPORT gboolean   totem_playlist_get_shuffle (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_shuffle (TotemPlaylist *playlist,
+													   gboolean shuffle);
 
-gboolean   totem_playlist_set_playing (TotemPlaylist *playlist, TotemPlaylistStatus state);
-TotemPlaylistStatus totem_playlist_get_playing (TotemPlaylist *playlist);
+G_MODULE_EXPORT gboolean   totem_playlist_set_playing (TotemPlaylist *playlist, TotemPlaylistStatus state);
+G_MODULE_EXPORT TotemPlaylistStatus totem_playlist_get_playing (TotemPlaylist *playlist);
 
-void       totem_playlist_set_at_start (TotemPlaylist *playlist);
-void       totem_playlist_set_at_end (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_at_start (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_at_end (TotemPlaylist *playlist);
 
-int        totem_playlist_get_current (TotemPlaylist *playlist);
-int        totem_playlist_get_last (TotemPlaylist *playlist);
-void       totem_playlist_set_current (TotemPlaylist *playlist, guint index);
+G_MODULE_EXPORT int        totem_playlist_get_current (TotemPlaylist *playlist);
+G_MODULE_EXPORT int        totem_playlist_get_last (TotemPlaylist *playlist);
+G_MODULE_EXPORT void       totem_playlist_set_current (TotemPlaylist *playlist, guint index);
 
-void       totem_playlist_foreach (TotemPlaylist *playlist,
-				   TotemPlaylistForeachFunc callback,
-				   gpointer user_data);
+G_MODULE_EXPORT void       totem_playlist_foreach (TotemPlaylist *playlist,
+												   TotemPlaylistForeachFunc callback,
+												   gpointer user_data);
 
 G_END_DECLS
 

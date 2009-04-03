@@ -48,6 +48,25 @@ typedef int Py_ssize_t;
 #endif
 
 #ifdef G_OS_WIN32
+#ifdef _MSC_VER
+typedef unsigned int sigset_t;
+/* Sigaction type and related macros */
+
+struct sigaction {
+    void  (__cdecl *sa_handler)(int);
+    sigset_t  sa_mask;
+    int sa_flags;
+};
+
+#define	SA_RESETHAND   0x00000001
+
+static int sigaction(signo, actP, oactP)
+{
+	g_print("stub: sigaction is not unimplemented");
+	return -1;
+}
+
+#else
 struct sigaction {
 	int          sa_flags;
 	sigset_t     sa_mask;
@@ -55,9 +74,10 @@ struct sigaction {
 };
 int sigaction(int sig, struct sigaction *in, struct sigaction *out)
 {
-	g_printf("stub: sigaction\n");
+	g_print("stub: sigaction\n");
 }
-#endif
+#endif /*_MSC_VER */
+#endif /* G_OS_WIN32 */
 
 #define TOTEM_PYTHON_MODULE_GET_PRIVATE(object) (G_TYPE_INSTANCE_GET_PRIVATE ((object), \
 						 TOTEM_TYPE_PYTHON_MODULE, \

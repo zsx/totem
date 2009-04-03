@@ -66,9 +66,9 @@ typedef struct {
 	gboolean (*starting_video) (TotemVideoList *video_list, GtkTreePath *path);
 } TotemVideoListClass;
 
-GType totem_video_list_get_type (void);
-TotemVideoList *totem_video_list_new (void);
-GtkUIManager *totem_video_list_get_ui_manager (TotemVideoList *self);
+G_MODULE_EXPORT GType totem_video_list_get_type (void);
+G_MODULE_EXPORT TotemVideoList *totem_video_list_new (void);
+G_MODULE_EXPORT GtkUIManager *totem_video_list_get_ui_manager (TotemVideoList *self);
 
 G_END_DECLS
 

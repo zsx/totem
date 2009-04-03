@@ -32,6 +32,10 @@
 #include "totem-subtitle-encoding.h"
 #include <string.h>
 
+#ifdef _MSC_VER
+#define strcasecmp stricmp
+#endif
+
 typedef enum
 {
   SUBTITLE_ENCODING_CURRENT_LOCALE,

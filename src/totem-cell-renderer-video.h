@@ -63,8 +63,8 @@ typedef struct {
 	GtkCellRendererClass parent;
 } TotemCellRendererVideoClass;
 
-GType totem_cell_renderer_video_get_type (void);
-TotemCellRendererVideo *totem_cell_renderer_video_new (gboolean use_placeholder);
+G_MODULE_EXPORT GType totem_cell_renderer_video_get_type (void);
+G_MODULE_EXPORT TotemCellRendererVideo *totem_cell_renderer_video_new (gboolean use_placeholder);
 
 G_END_DECLS
 

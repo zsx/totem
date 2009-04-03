@@ -55,19 +55,19 @@ struct _EvSidebarClass {
 	void (*closed) (EvSidebar *sidebar);
 };
 
-GType      ev_sidebar_get_type     (void);
-GtkWidget *ev_sidebar_new          (void);
-void       ev_sidebar_add_page     (EvSidebar   *ev_sidebar,
-				    const gchar *page_id,
-				    const gchar *title,
-				    GtkWidget   *main_widget);
-void       ev_sidebar_set_current_page
-				   (EvSidebar *ev_sidebar,
-				    const char *page_id);
-char      *ev_sidebar_get_current_page
-				   (EvSidebar *ev_sidebar);
-void        ev_sidebar_remove_page (EvSidebar   *ev_sidebar,
-				    const gchar *page_id);
+G_MODULE_EXPORT GType      ev_sidebar_get_type     (void);
+G_MODULE_EXPORT GtkWidget *ev_sidebar_new          (void);
+G_MODULE_EXPORT void       ev_sidebar_add_page     (EvSidebar   *ev_sidebar,
+													const gchar *page_id,
+													const gchar *title,
+													GtkWidget   *main_widget);
+G_MODULE_EXPORT void       ev_sidebar_set_current_page
+(EvSidebar *ev_sidebar,
+ const char *page_id);
+G_MODULE_EXPORT char      *ev_sidebar_get_current_page
+(EvSidebar *ev_sidebar);
+G_MODULE_EXPORT void        ev_sidebar_remove_page (EvSidebar   *ev_sidebar,
+													const gchar *page_id);
 
 G_END_DECLS
 

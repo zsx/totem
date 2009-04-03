@@ -53,9 +53,9 @@ struct TotemOpenLocationClass {
 	GtkDialogClass parent_class;
 };
 
-GType totem_open_location_get_type		(void);
-GtkWidget *totem_open_location_new		(Totem *totem);
-char *totem_open_location_get_uri		(TotemOpenLocation *open_location);
+G_MODULE_EXPORT GType totem_open_location_get_type		(void);
+G_MODULE_EXPORT GtkWidget *totem_open_location_new		(Totem *totem);
+G_MODULE_EXPORT char *totem_open_location_get_uri		(TotemOpenLocation *open_location);
 
 G_END_DECLS
 

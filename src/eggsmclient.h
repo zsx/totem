@@ -88,33 +88,33 @@ struct _EggSMClientClass
   void (*_egg_reserved4) (void);
 };
 
-GType            egg_sm_client_get_type            (void) G_GNUC_CONST;
+G_MODULE_EXPORT GType            egg_sm_client_get_type            (void) G_GNUC_CONST;
 
-GOptionGroup    *egg_sm_client_get_option_group    (void);
+G_MODULE_EXPORT GOptionGroup    *egg_sm_client_get_option_group    (void);
 
 /* Initialization */
-void             egg_sm_client_set_mode            (EggSMClientMode mode);
-EggSMClientMode  egg_sm_client_get_mode            (void);
-EggSMClient     *egg_sm_client_get                 (void);
+G_MODULE_EXPORT void             egg_sm_client_set_mode            (EggSMClientMode mode);
+G_MODULE_EXPORT EggSMClientMode  egg_sm_client_get_mode            (void);
+G_MODULE_EXPORT EggSMClient     *egg_sm_client_get                 (void);
 
 /* Resuming a saved session */
-gboolean         egg_sm_client_is_resumed          (EggSMClient *client);
-GKeyFile        *egg_sm_client_get_state_file      (EggSMClient *client);
+G_MODULE_EXPORT gboolean         egg_sm_client_is_resumed          (EggSMClient *client);
+G_MODULE_EXPORT GKeyFile        *egg_sm_client_get_state_file      (EggSMClient *client);
 
 /* Alternate means of saving state */
-void             egg_sm_client_set_restart_command (EggSMClient  *client,
+G_MODULE_EXPORT void             egg_sm_client_set_restart_command (EggSMClient  *client,
 						    int           argc,
 						    const char  **argv);
-void             egg_sm_client_set_discard_command (EggSMClient  *client,
+G_MODULE_EXPORT void             egg_sm_client_set_discard_command (EggSMClient  *client,
 						    int           argc,
 						    const char  **argv);
 
 /* Handling "quit_requested" signal */
-void             egg_sm_client_will_quit           (EggSMClient *client,
+G_MODULE_EXPORT void             egg_sm_client_will_quit           (EggSMClient *client,
 						    gboolean     will_quit);
 
 /* Initiate a logout/reboot/shutdown */
-gboolean         egg_sm_client_end_session         (EggSMClientEndStyle  style,
+G_MODULE_EXPORT gboolean         egg_sm_client_end_session         (EggSMClientEndStyle  style,
 						    gboolean             request_confirmation);
 
 G_END_DECLS

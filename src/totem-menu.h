@@ -29,15 +29,15 @@ G_BEGIN_DECLS
 
 #define TOTEM_MAX_RECENT_ITEM_LEN 40
 
-void totem_ui_manager_setup (Totem *totem);
+G_MODULE_EXPORT void totem_ui_manager_setup (Totem *totem);
 
-void totem_sublang_update (Totem *totem);
-void totem_sublang_exit (Totem *totem);
+G_MODULE_EXPORT void totem_sublang_update (Totem *totem);
+G_MODULE_EXPORT void totem_sublang_exit (Totem *totem);
 
-void totem_setup_play_disc (Totem *totem);
+G_MODULE_EXPORT void totem_setup_play_disc (Totem *totem);
 
-void totem_setup_recent (Totem *totem);
-void totem_action_add_recent (Totem *totem, const char *uri);
+G_MODULE_EXPORT void totem_setup_recent (Totem *totem);
+G_MODULE_EXPORT void totem_action_add_recent (Totem *totem, const char *uri);
 
 G_END_DECLS
 

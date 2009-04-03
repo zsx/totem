@@ -29,6 +29,7 @@
 #define BACON_MESSAGE_CONNECTION_H
 
 #include <glib.h>
+#include <gmodule.h>
 
 G_BEGIN_DECLS
 
@@ -37,14 +38,14 @@ typedef void (*BaconMessageReceivedFunc) (const char *message,
 
 typedef struct BaconMessageConnection BaconMessageConnection;
 
-BaconMessageConnection *bacon_message_connection_new	(const char *prefix);
-void bacon_message_connection_free			(BaconMessageConnection *conn);
-void bacon_message_connection_set_callback		(BaconMessageConnection *conn,
+G_MODULE_EXPORT BaconMessageConnection *bacon_message_connection_new	(const char *prefix);
+G_MODULE_EXPORT void bacon_message_connection_free			(BaconMessageConnection *conn);
+G_MODULE_EXPORT void bacon_message_connection_set_callback		(BaconMessageConnection *conn,
 							 BaconMessageReceivedFunc func,
 							 gpointer user_data);
-void bacon_message_connection_send			(BaconMessageConnection *conn,
+G_MODULE_EXPORT void bacon_message_connection_send			(BaconMessageConnection *conn,
 							 const char *message);
-gboolean bacon_message_connection_get_is_server		(BaconMessageConnection *conn);
+G_MODULE_EXPORT gboolean bacon_message_connection_get_is_server		(BaconMessageConnection *conn);
 
 G_END_DECLS
 

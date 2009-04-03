@@ -5,8 +5,8 @@
 
 #include <gtk/gtk.h>
 
-void totem_subtitle_encoding_init (GtkComboBox *combo);
-void totem_subtitle_encoding_set (GtkComboBox *combo, const char *encoding);
-const char * totem_subtitle_encoding_get_selected (GtkComboBox *combo);
+G_MODULE_EXPORT void totem_subtitle_encoding_init (GtkComboBox *combo);
+G_MODULE_EXPORT void totem_subtitle_encoding_set (GtkComboBox *combo, const char *encoding);
+G_MODULE_EXPORT const char * totem_subtitle_encoding_get_selected (GtkComboBox *combo);
 
 #endif /* SUBTITLE_ENCODING_H */

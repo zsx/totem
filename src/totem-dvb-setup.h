@@ -37,10 +37,10 @@ enum {
 
 typedef void (*TotemDvbSetupResultFunc) (int result, const char *device, gpointer user_data);
 
-int totem_dvb_setup_device (const char *device,
-			    GtkWindow *parent,
-			    TotemDvbSetupResultFunc func,
-			    gpointer user_data);
+G_MODULE_EXPORT int totem_dvb_setup_device (const char *device,
+											GtkWindow *parent,
+											TotemDvbSetupResultFunc func,
+											gpointer user_data);
 
 G_END_DECLS
 

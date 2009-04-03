@@ -31,10 +31,10 @@
 
 G_BEGIN_DECLS
 
-void totem_setup_preferences (Totem *totem);
-void totem_preferences_visuals_setup (Totem *totem);
+G_MODULE_EXPORT void totem_setup_preferences (Totem *totem);
+G_MODULE_EXPORT void totem_preferences_visuals_setup (Totem *totem);
 
-GtkWidget * bacon_cd_selection_create (void);
+G_MODULE_EXPORT GtkWidget * bacon_cd_selection_create (void);
 
 G_END_DECLS
 

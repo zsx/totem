@@ -24,8 +24,8 @@
 
 G_BEGIN_DECLS
 
-GstBuffer *     bvw_frame_conv_convert  (GstBuffer *buf,
-                                         GstCaps   *to);
+G_MODULE_EXPORT GstBuffer *     bvw_frame_conv_convert  (GstBuffer *buf,
+														 GstCaps   *to);
 
 G_END_DECLS
 

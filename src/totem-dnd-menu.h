@@ -24,6 +24,6 @@
 
 #include <gdk/gdkkeysyms.h>
 
-GdkDragAction totem_drag_ask (gboolean show_add_to);
+G_MODULE_EXPORT GdkDragAction totem_drag_ask (gboolean show_add_to);
 
 #endif

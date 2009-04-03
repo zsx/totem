@@ -66,20 +66,20 @@ struct TotemFullscreenClass {
 	GObjectClass parent_class;
 };
 
-GType    totem_fullscreen_get_type           (void);
-TotemFullscreen * totem_fullscreen_new       (GtkWindow *toplevel_window);
-void     totem_fullscreen_set_video_widget   (TotemFullscreen *fs,
-					      BaconVideoWidget *bvw);
-void     totem_fullscreen_set_parent_window  (TotemFullscreen *fs,
-					      GtkWindow *parent_window);
-void     totem_fullscreen_show_popups        (TotemFullscreen *fs,
-					      gboolean show_cursor);
-gboolean totem_fullscreen_is_fullscreen      (TotemFullscreen *fs);
-void     totem_fullscreen_set_fullscreen     (TotemFullscreen *fs,
-					      gboolean fullscreen);
-void     totem_fullscreen_set_title          (TotemFullscreen *fs,
-					      const char *title);
-void     totem_fullscreen_set_seekable       (TotemFullscreen *fs,
-					      gboolean seekable);
-void     totem_fullscreen_set_can_set_volume (TotemFullscreen *fs,
-					      gboolean can_set_volume);
+G_MODULE_EXPORT GType    totem_fullscreen_get_type           (void);
+G_MODULE_EXPORT TotemFullscreen * totem_fullscreen_new       (GtkWindow *toplevel_window);
+G_MODULE_EXPORT void     totem_fullscreen_set_video_widget   (TotemFullscreen *fs,
+															  BaconVideoWidget *bvw);
+G_MODULE_EXPORT void     totem_fullscreen_set_parent_window  (TotemFullscreen *fs,
+															  GtkWindow *parent_window);
+G_MODULE_EXPORT void     totem_fullscreen_show_popups        (TotemFullscreen *fs,
+															  gboolean show_cursor);
+G_MODULE_EXPORT gboolean totem_fullscreen_is_fullscreen      (TotemFullscreen *fs);
+G_MODULE_EXPORT void     totem_fullscreen_set_fullscreen     (TotemFullscreen *fs,
+															  gboolean fullscreen);
+G_MODULE_EXPORT void     totem_fullscreen_set_title          (TotemFullscreen *fs,
+															  const char *title);
+G_MODULE_EXPORT void     totem_fullscreen_set_seekable       (TotemFullscreen *fs,
+															  gboolean seekable);
+G_MODULE_EXPORT void     totem_fullscreen_set_can_set_volume (TotemFullscreen *fs,
+															  gboolean can_set_volume);

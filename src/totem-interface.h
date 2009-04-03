@@ -28,35 +28,35 @@
 
 G_BEGIN_DECLS
 
-GdkPixbuf	*totem_interface_load_pixbuf	(const char *name);
-char		*totem_interface_get_full_path	(const char *name);
-GtkBuilder	*totem_interface_load		(const char *name,
-						 gboolean fatal,
-						 GtkWindow *parent,
-						 gpointer user_data);
-GtkBuilder      *totem_interface_load_with_full_path (const char *filename, 
-						      gboolean fatal, 
-						      GtkWindow *parent,
-						      gpointer user_data);
-void		 totem_interface_error		(const char *title,
-						 const char *reason,
-						 GtkWindow *parent);
-void		 totem_interface_error_blocking	(const char *title,
-						 const char *reason,
-						 GtkWindow *parent);
-void		 totem_interface_error_with_link (const char *title,
-						  const char *reason,
-						  const char *uri,
-						  const char *label,
-						  GtkWindow *parent,
-						  Totem *totem);
-void		 totem_interface_set_transient_for (GtkWindow *window,
-						    GtkWindow *parent);
-char *		 totem_interface_get_license	(void);
-void		 totem_interface_boldify_label	(GtkBuilder *xml,
-						 const char *label);
-void		 totem_interface_italicise_label(GtkBuilder *xml,
-						 const char *label);
+G_MODULE_EXPORT GdkPixbuf	*totem_interface_load_pixbuf	(const char *name);
+G_MODULE_EXPORT char		*totem_interface_get_full_path	(const char *name);
+G_MODULE_EXPORT GtkBuilder	*totem_interface_load		(const char *name,
+														 gboolean fatal,
+														 GtkWindow *parent,
+														 gpointer user_data);
+G_MODULE_EXPORT GtkBuilder      *totem_interface_load_with_full_path (const char *filename, 
+																	  gboolean fatal, 
+																	  GtkWindow *parent,
+																	  gpointer user_data);
+G_MODULE_EXPORT void		 totem_interface_error		(const char *title,
+														 const char *reason,
+														 GtkWindow *parent);
+G_MODULE_EXPORT void		 totem_interface_error_blocking	(const char *title,
+															 const char *reason,
+															 GtkWindow *parent);
+G_MODULE_EXPORT void		 totem_interface_error_with_link (const char *title,
+															  const char *reason,
+															  const char *uri,
+															  const char *label,
+															  GtkWindow *parent,
+															  Totem *totem);
+G_MODULE_EXPORT void		 totem_interface_set_transient_for (GtkWindow *window,
+																GtkWindow *parent);
+G_MODULE_EXPORT char *		 totem_interface_get_license	(void);
+G_MODULE_EXPORT void		 totem_interface_boldify_label	(GtkBuilder *xml,
+															 const char *label);
+G_MODULE_EXPORT void		 totem_interface_italicise_label(GtkBuilder *xml,
+															 const char *label);
 
 G_END_DECLS
 

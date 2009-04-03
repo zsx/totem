@@ -34,42 +34,42 @@ typedef enum {
 	EGG_DESKTOP_FILE_TYPE_DIRECTORY
 } EggDesktopFileType;
 
-EggDesktopFile     *egg_desktop_file_new                (const char   *desktop_file_path,
-							 GError      **error);
+G_MODULE_EXPORT EggDesktopFile     *egg_desktop_file_new                (const char   *desktop_file_path,
+																		 GError      **error);
 
-EggDesktopFile     *egg_desktop_file_new_from_data_dirs (const char   *desktop_file_path,
-							 GError      **error);
-EggDesktopFile     *egg_desktop_file_new_from_dirs      (const char   *desktop_file_path,
-							 const char  **search_dirs,
-							 GError      **error);
-EggDesktopFile     *egg_desktop_file_new_from_key_file  (GKeyFile     *key_file,
-							 const char   *source,
-							 GError      **error);
+G_MODULE_EXPORT EggDesktopFile     *egg_desktop_file_new_from_data_dirs (const char   *desktop_file_path,
+																		 GError      **error);
+G_MODULE_EXPORT EggDesktopFile     *egg_desktop_file_new_from_dirs      (const char   *desktop_file_path,
+																		 const char  **search_dirs,
+																		 GError      **error);
+G_MODULE_EXPORT EggDesktopFile     *egg_desktop_file_new_from_key_file  (GKeyFile     *key_file,
+																		 const char   *source,
+																		 GError      **error);
 
-void                egg_desktop_file_free               (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT void                egg_desktop_file_free               (EggDesktopFile  *desktop_file);
 
-const char         *egg_desktop_file_get_source         (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT const char         *egg_desktop_file_get_source         (EggDesktopFile  *desktop_file);
 
-EggDesktopFileType  egg_desktop_file_get_desktop_file_type (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT EggDesktopFileType  egg_desktop_file_get_desktop_file_type (EggDesktopFile  *desktop_file);
 
-const char         *egg_desktop_file_get_name           (EggDesktopFile  *desktop_file);
-const char         *egg_desktop_file_get_icon           (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT const char         *egg_desktop_file_get_name           (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT const char         *egg_desktop_file_get_icon           (EggDesktopFile  *desktop_file);
 
-gboolean            egg_desktop_file_can_launch         (EggDesktopFile  *desktop_file,
-							 const char      *desktop_environment);
+G_MODULE_EXPORT gboolean            egg_desktop_file_can_launch         (EggDesktopFile  *desktop_file,
+																		 const char      *desktop_environment);
 
-gboolean            egg_desktop_file_accepts_documents  (EggDesktopFile  *desktop_file);
-gboolean            egg_desktop_file_accepts_multiple   (EggDesktopFile  *desktop_file);
-gboolean            egg_desktop_file_accepts_uris       (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT gboolean            egg_desktop_file_accepts_documents  (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT gboolean            egg_desktop_file_accepts_multiple   (EggDesktopFile  *desktop_file);
+G_MODULE_EXPORT gboolean            egg_desktop_file_accepts_uris       (EggDesktopFile  *desktop_file);
 
-char               *egg_desktop_file_parse_exec         (EggDesktopFile  *desktop_file,
-							 GSList          *documents,
-							 GError         **error);
+G_MODULE_EXPORT char               *egg_desktop_file_parse_exec         (EggDesktopFile  *desktop_file,
+																		 GSList          *documents,
+																		 GError         **error);
 
-gboolean            egg_desktop_file_launch             (EggDesktopFile  *desktop_file,
-							 GSList          *documents,
-							 GError         **error,
-							 ...) G_GNUC_NULL_TERMINATED;
+G_MODULE_EXPORT gboolean            egg_desktop_file_launch             (EggDesktopFile  *desktop_file,
+																		 GSList          *documents,
+																		 GError         **error,
+																		 ...) G_GNUC_NULL_TERMINATED;
 
 typedef enum {
 	EGG_DESKTOP_FILE_LAUNCH_CLEARENV = 1,
@@ -111,37 +111,37 @@ typedef enum {
 #define EGG_DESKTOP_FILE_KEY_URL		"URL"
 
 /* Accessors */
-gboolean  egg_desktop_file_has_key                (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   GError         **error);
-char     *egg_desktop_file_get_string             (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   GError         **error) G_GNUC_MALLOC;
-char     *egg_desktop_file_get_locale_string      (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   const char      *locale,
-						   GError         **error) G_GNUC_MALLOC;
-gboolean  egg_desktop_file_get_boolean            (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   GError         **error);
-double    egg_desktop_file_get_numeric            (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   GError         **error);
-char    **egg_desktop_file_get_string_list        (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   gsize           *length,
-						   GError         **error) G_GNUC_MALLOC;
-char    **egg_desktop_file_get_locale_string_list (EggDesktopFile  *desktop_file,
-						   const char      *key,
-						   const char      *locale,
-						   gsize           *length,
-						   GError         **error) G_GNUC_MALLOC;
+G_MODULE_EXPORT gboolean  egg_desktop_file_has_key                (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   GError         **error);
+G_MODULE_EXPORT char     *egg_desktop_file_get_string             (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   GError         **error) G_GNUC_MALLOC;
+G_MODULE_EXPORT char     *egg_desktop_file_get_locale_string      (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   const char      *locale,
+																   GError         **error) G_GNUC_MALLOC;
+G_MODULE_EXPORT gboolean  egg_desktop_file_get_boolean            (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   GError         **error);
+G_MODULE_EXPORT double    egg_desktop_file_get_numeric            (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   GError         **error);
+G_MODULE_EXPORT char    **egg_desktop_file_get_string_list        (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   gsize           *length,
+																   GError         **error) G_GNUC_MALLOC;
+G_MODULE_EXPORT char    **egg_desktop_file_get_locale_string_list (EggDesktopFile  *desktop_file,
+																   const char      *key,
+																   const char      *locale,
+																   gsize           *length,
+																   GError         **error) G_GNUC_MALLOC;
 
 
 /* Errors */
 #define EGG_DESKTOP_FILE_ERROR egg_desktop_file_error_quark()
 
-GQuark egg_desktop_file_error_quark (void);
+G_MODULE_EXPORT GQuark egg_desktop_file_error_quark (void);
 
 typedef enum {
 	EGG_DESKTOP_FILE_ERROR_INVALID,
@@ -150,8 +150,8 @@ typedef enum {
 } EggDesktopFileError;
 
 /* Global application desktop file */
-void            egg_set_desktop_file (const char *desktop_file_path);
-EggDesktopFile *egg_get_desktop_file (void);
+G_MODULE_EXPORT void            egg_set_desktop_file (const char *desktop_file_path);
+G_MODULE_EXPORT EggDesktopFile *egg_get_desktop_file (void);
 
 
 G_END_DECLS
