@@ -157,7 +157,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;..\..\src\backend"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBTOTEM_PLAYER_EXPORTS;DATADIR=\&quot;$(OutDir)/share/totem\&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBTOTEM_PLAYER_EXPORTS;DATADIR=\&quot;C:/FOSS/$(ConfigurationName)/share/&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -248,13 +248,6 @@
 			<File
 				RelativePath=".\libtotem_player.oahdeps"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="PkgConfigOAHDepsTool"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="GtkVersion"
+	>
+	<UserMacro
+		Name="TotemMajorVersion"
+		Value="2"
+	/>
+	<UserMacro
+		Name="TotemMinorVersion"
+		Value="25"
+	/>
+	<UserMacro
+		Name="TotemMicroVersion"
+		Value="3"
+	/>
+	<UserMacro
+		Name="TotemApiVersion"
+		Value="$(TotemMajorVersion).0"
+	/>
+	<UserMacro
+		Name="TotemVersion"
+		Value="$(TotemMajorVersion).$(TotemMinorVersion).$(TotemMicroVersion)"
+	/>
+	<UserMacro
+		Name="HOST"
+		Value="i486-windows"
+	/>
+</VisualStudioPropertySheet>
