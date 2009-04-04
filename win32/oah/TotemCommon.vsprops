@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="TotemCommon"
+	InheritedPropertySheets=".\TotemVersion.vsprops"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(IntDir);$(IntDir)\..\generated;..\.."
+		PreprocessorDefinitions="HAVE_CONFIG_H"
+	/>
+</VisualStudioPropertySheet>

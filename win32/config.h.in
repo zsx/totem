@@ -110,7 +110,7 @@
 #define TOTEM_DEBUG 1
 
 /* enable search for UI files and plugins in local directory */
-#define TOTEM_RUN_IN_SOURCE_TREE 1
+/* #define TOTEM_RUN_IN_SOURCE_TREE 1 */
 
 /* Version number of package */
 #define VERSION "@TOTEM_MAJOR_VERSION@.@TOTEM_MINOR_VERSION@.@TOTEM_MICRO_VERSION@"

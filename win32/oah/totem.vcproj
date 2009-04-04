@@ -167,7 +167,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="$(IntDir)\..\generated;..\..\src;..\..\src\backend"
-				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;GNOMELOCALEDIR=\&quot;$(OutDir)/share/locale\&quot;;LOGO_PATH=\&quot;$(OutDir)/share\&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;GNOMELOCALEDIR=\&quot;C:/FOSS/$(ConfigurationName)/share/locale\&quot;;LOGO_PATH=\&quot;C:/FOSS/$(ConfigurationName)/share/&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
