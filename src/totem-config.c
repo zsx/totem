@@ -1,4 +1,5 @@
 #include <glib.h>
+#include <glib-object.h>
 #include <gconf/gconf-client.h>
 #include <windows.h>
 #include <stdio.h>
@@ -52,9 +53,9 @@ static gboolean open_key(const gchar *key, TCHAR *value, REGSAM samDesired, PHKE
 	name = strrchr(key1, '/');
 	if(name != NULL){
 		*name = '\0';
-		name ++;
+		name = g_strdup(name + 1);
 	}else{
-		name = key;
+		name = g_strdup(key);
 		g_free(key1);
 		key1 = NULL;
 	}
@@ -74,7 +75,7 @@ static gboolean open_key(const gchar *key, TCHAR *value, REGSAM samDesired, PHKE
 	gcharp2LPCTSTR(name, value);
 	g_print("name = %s\n", name);
 	printf("value = %S\n", value);
-
+	g_free(name);
 	return TRUE;
 }
 
@@ -90,7 +91,7 @@ gconf_client_get_for_engine         (GConfEngine *engine)
 	return &defaultClient;
 }
 
-void                gconf_client_add_dir                (GConfClient *client,
+void gconf_client_add_dir                (GConfClient *client,
                                                          const gchar *dir,
                                                          GConfClientPreloadType preload,
                                                          GError **err)
@@ -462,3 +463,21 @@ GConfChangeSet*     gconf_client_change_set_from_current
 	return NULL;
 }
 
+const char*         gconf_value_get_string              (const GConfValue *value)
+{
+	return NULL;
+}
+int                 gconf_value_get_int                 (const GConfValue *value)
+{
+	return 0;
+}
+double              gconf_value_get_float               (const GConfValue *value)
+{
+	return 0.0;
+}
+gboolean            gconf_value_get_bool                (const GConfValue *value)
+{
+	return FALSE;
+}
+
+void                gconf_value_free                    (GConfValue *value){};
