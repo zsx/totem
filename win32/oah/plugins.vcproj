@@ -68,7 +68,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Python25\include;C:\Python25\include\pycairo;&quot;C:\Python25\include\pygtk-2.0&quot;;..\..\src;..\..\src\backend"
+				AdditionalIncludeDirectories="C:\Python25\include;C:\Python25\include\pycairo;&quot;C:\Python25\include\pygtk-2.0&quot;;..\..\src;..\..\src\backend;..\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GCONF_PREFIX=\&quot;Totem\&quot;;TOTEM_PLUGIN_DIR=\&quot;C:\\FOSS\\Debug\\share\\totem\\plugins\&quot;;GNOMELOCALEDIR=\&quot;C:\\FOSS\\Debug\\locale\&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -157,7 +157,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="&quot;$(PYTHON_INCLUDE)&quot;;&quot;$(PYTHON_INCLUDE)/pygtk-2.0&quot;;..\..\src;..\..\src\backend"
-				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GCONF_PREFIX=\&quot;Totem\&quot;;TOTEM_PLUGIN_DIR=\&quot;C:/FOSS/$(ConfigurationName)/share/totem/plugins\&quot;;GNOMELOCALEDIR=\&quot;$(OutDir)/share/locale\&quot;"
+				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GCONF_PREFIX=\&quot;Totem\&quot;;TOTEM_PLUGIN_DIR=\&quot;C:/FOSS/$(ConfigurationName)/share/totem/plugins\&quot;;GNOMELOCALEDIR=\&quot;C:/FOSS/$(ConfigurationName)/share/locale\&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"

@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;&quot;$(IntDir)&quot;;..\..\src\backend;..\..\src\plugins;..\..\src;..\..\data"
+				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;&quot;$(IntDir)&quot;;..\..\src\backend;..\..\src\plugins;..\..\src;..\..\data;..\"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;GCONF_PREFIX=\&quot;Totem\&quot;;LIBTOTEM_EXPORT"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -87,7 +87,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libintl.lib Ws2_32.lib"
+				AdditionalDependencies="libintl-proxy.lib Ws2_32.lib"
 				OutputFile="$(OutDir)\bin\$(ProjectName).dll"
 				AdditionalLibraryDirectories="C:\Python25\Libs"
 				ModuleDefinitionFile="$(IntDir)\libtotem.def"
@@ -231,6 +231,10 @@
 			</File>
 			<File
 				RelativePath="..\..\src\totem-cell-renderer-video.c"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\totem-config.c"
 				>
 			</File>
 			<File

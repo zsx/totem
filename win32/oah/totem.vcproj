@@ -67,7 +67,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(IntDir)\..\generated;..\..\src;..\..\src\backend"
+				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;..\..\src;..\..\src\backend;.."
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;GNOMELOCALEDIR=\&quot;C:\\FOSS\\Debug\\share\\locale\&quot;;LOGO_PATH=\&quot;C:\\FOSS\\Debug\\share\&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -87,7 +87,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libintl.lib"
+				AdditionalDependencies="libintl-proxy.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"

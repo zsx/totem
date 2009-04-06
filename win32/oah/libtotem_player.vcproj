@@ -68,8 +68,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;..\..\src\backend"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBTOTEM_PLAYER_EXPORTS;DATADIR=\&quot;C:\\FOSS\\Debug\\share\\totem\&quot;"
+				AdditionalIncludeDirectories="&quot;$(IntDir)\..\generated&quot;;..\..\src\backend;.."
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBTOTEM_PLAYER_EXPORTS;DATADIR=\&quot;C:\\FOSS\\Debug\\share\&quot;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
