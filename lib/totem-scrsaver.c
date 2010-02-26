@@ -379,7 +379,9 @@ totem_scrsaver_init (TotemScrsaver *scr)
 #ifdef GDK_WINDOWING_X11
 	screensaver_init_x11 (scr);
 #else
+#ifndef _MSC_VER
 #warning Unimplemented
+#endif
 #endif
 }
 
@@ -399,7 +401,9 @@ totem_scrsaver_disable (TotemScrsaver *scr)
 #ifdef GDK_WINDOWING_X11
 		screensaver_disable_x11 (scr);
 #else
+#ifndef _MSC_VER
 #warning Unimplemented
+#endif
 	{}
 #endif
 }
@@ -420,7 +424,9 @@ totem_scrsaver_enable (TotemScrsaver *scr)
 #ifdef GDK_WINDOWING_X11
 		screensaver_enable_x11 (scr);
 #else
+#ifndef _MSC_VER
 #warning Unimplemented
+#endif
 	{}
 #endif
 }
@@ -448,7 +454,9 @@ totem_scrsaver_finalize (GObject *object)
 #ifdef GDK_WINDOWING_X11
 	screensaver_finalize_x11 (scr);
 #else
+#ifndef _MSC_VER
 #warning Unimplemented
+#endif
 	{}
 #endif
 

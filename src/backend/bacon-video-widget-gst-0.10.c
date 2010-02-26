@@ -65,14 +65,18 @@
 #include <gst/tag/tag.h>
 
 /* system */
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <time.h>
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
 
 /* gtk+/gnome */
+#ifndef G_OS_WIN32
 #include <gdk/gdkx.h>
+#endif
 #include <gtk/gtk.h>
 #include <glib/gi18n.h>
 #include <gio/gio.h>
