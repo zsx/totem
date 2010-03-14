@@ -24,7 +24,9 @@
 #define TOTEM_OPTIONS_H
 
 #include <gconf/gconf-client.h>
+#ifdef HAVE_UNIQUE
 #include <unique/uniqueapp.h>
+#endif
 
 #include "totem.h"
 
@@ -62,8 +64,10 @@ void totem_options_process_early (Totem *totem,
 				  const TotemCmdLineOptions* options);
 void totem_options_process_late (Totem *totem, 
 				 const TotemCmdLineOptions* options);
+#ifdef HAVE_UNIQUE
 void totem_options_process_for_server (UniqueApp *app,
 				       const TotemCmdLineOptions* options);
+#endif
 
 G_END_DECLS
 

@@ -31,7 +31,9 @@
 #include <gconf/gconf-client.h>
 #include <gtk/gtk.h>
 #include <gio/gio.h>
+#ifdef HAVE_UNIQUE
 #include <unique/uniqueapp.h>
+#endif
 
 #include "totem-playlist.h"
 #include "bacon-video-widget.h"
@@ -158,7 +160,9 @@ struct _TotemObject {
 	gint64 seek_to;
 	TotemPlaylist *playlist;
 	GConfClient *gc;
+#ifdef HAVE_UNIQUE
 	UniqueApp *app;
+#endif
 	TotemStates state;
 	TotemOpenLocation *open_location;
 	gboolean remember_position;

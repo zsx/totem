@@ -25,9 +25,9 @@ struct TotemTimeLabelClass {
 
 G_MODULE_EXPORT GType totem_time_label_get_type (void);
 GtkWidget *totem_time_label_new                 (void);
-void       totem_time_label_set_time            (TotemTimeLabel *label,
-                                                 gint64 time, gint64 length);
-void       totem_time_label_set_seeking         (TotemTimeLabel *label,
-                                                 gboolean seeking);
+G_MODULE_EXPORT void       totem_time_label_set_time (TotemTimeLabel *label,
+                                                      gint64 time, gint64 length);
+G_MODULE_EXPORT void       totem_time_label_set_seeking (TotemTimeLabel *label,
+                                                         gboolean seeking);
 
 #endif /* TOTEM_TIME_LABEL_H */

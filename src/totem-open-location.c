@@ -33,7 +33,9 @@
 #include <glib/gi18n.h>
 #include <string.h>
 #include <sys/types.h>
+#ifdef HAVE_UNISTD_H
 #include <unistd.h>
+#endif
 #include <sys/stat.h>
 
 #include "totem.h"

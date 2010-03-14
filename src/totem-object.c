@@ -943,8 +943,10 @@ totem_action_exit (Totem *totem)
 		bacon_video_widget_close (totem->bvw);
 	}
 
+#ifdef HAVE_UNIQUE
 	if (totem->app != NULL)
 		g_object_unref (totem->app);
+#endif
 	totem_action_save_state (totem, page_id);
 	g_free (page_id);
 

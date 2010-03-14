@@ -29,7 +29,9 @@
 
 #ifdef WITH_SMCLIENT
 
+#ifdef HAVE_UNISTD
 #include <unistd.h>
+#endif
 
 #include "eggsmclient.h"
 

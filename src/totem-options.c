@@ -92,7 +92,9 @@ totem_options_register_remote_commands (Totem *totem)
 	for (i = TOTEM_REMOTE_COMMAND_UNKNOWN + 1; i < klass->n_values; i++) {
 		GEnumValue *val;
 		val = g_enum_get_value (klass, i);
+#ifdef HAVE_UNIQUE
 		unique_app_add_command (totem->app, val->value_name, i);
+#endif
 	}
 	g_type_class_unref (klass);
 }
@@ -110,6 +112,7 @@ totem_options_process_early (Totem *totem, const TotemCmdLineOptions* options)
 			       options->debug, NULL);
 }
 
+#ifdef HAVE_UNIQUE
 void
 totem_options_process_for_server (UniqueApp *app,
 				  const TotemCmdLineOptions* options)
@@ -228,4 +231,6 @@ totem_options_process_for_server (UniqueApp *app,
 	}
 	g_list_free (commands);
 }
+
+#endif
 

@@ -43,7 +43,9 @@
 #include <glib.h>
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+#ifdef GDK_WINDOWING_X11
 #include <gdk/gdkx.h>
+#endif
 #include <gconf/gconf-client.h>
 
 #include "totem-interface.h"
@@ -296,6 +298,7 @@ totem_interface_get_full_path (const char *name)
 	return filename;
 }
 
+#ifdef GDK_WINDOWING_X11
 static GdkWindow *
 totem_gtk_plug_get_toplevel (GtkPlug *plug)
 {
@@ -327,6 +330,7 @@ totem_gtk_plug_get_toplevel (GtkPlug *plug)
 	}
 	while (TRUE);
 }
+#endif
 
 void
 totem_interface_set_transient_for (GtkWindow *window, GtkWindow *parent)
