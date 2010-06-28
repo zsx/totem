@@ -509,15 +509,17 @@ drop_cb (GtkWidget        *widget,
 	GList *p, *file_list;
 	guint i;
 
-	if (context->suggested_action == GDK_ACTION_ASK) {
+	if (gdk_drag_context_get_suggested_action(context) == GDK_ACTION_ASK) {
+		/* FIXME SEAL
 		context->action = totem_drag_ask (PL_LEN != 0);
-		if (context->action == GDK_ACTION_DEFAULT) {
+		 */
+		if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_DEFAULT) {
 			gtk_drag_finish (context, FALSE, FALSE, _time);
 			return;
 		}
 	}
 
-	if (context->action == GDK_ACTION_MOVE)
+	if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_MOVE)
 		totem_playlist_clear (playlist);
 
 	list = g_uri_list_extract_uris ((char *) gtk_selection_data_get_data (data));

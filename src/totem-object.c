@@ -2308,22 +2308,24 @@ drop_video_cb (GtkWidget     *widget,
 
 	/* Drop of video on itself */
 	if (source_widget && widget == source_widget &&
-	    context->action == GDK_ACTION_MOVE) {
+	    gdk_drag_context_get_selected_action(context) == GDK_ACTION_MOVE) {
 		gtk_drag_finish (context, FALSE, FALSE, _time);
 		return;
 	}
 
-	if (context->action == GDK_ACTION_ASK) {
+	if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_ASK) {
+		/* FIXME SEAL
 		context->action = totem_drag_ask (totem_get_playlist_length (totem) > 0);
+		 */
 	}
 
 	/* User selected cancel */
-	if (context->action == GDK_ACTION_DEFAULT) {
+	if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_DEFAULT) {
 		gtk_drag_finish (context, FALSE, FALSE, _time);
 		return;
 	}
 
-	empty_pl = (context->action == GDK_ACTION_MOVE);
+	empty_pl = (gdk_drag_context_get_selected_action(context) == GDK_ACTION_MOVE);
 	totem_action_drop_files (totem, data, info, empty_pl);
 	gtk_drag_finish (context, TRUE, FALSE, _time);
 	return;
@@ -2342,7 +2344,7 @@ drag_motion_video_cb (GtkWidget      *widget,
 	gdk_window_get_pointer (gtk_widget_get_window (widget), NULL, NULL, &mask);
 	if (mask & GDK_CONTROL_MASK) {
 		gdk_drag_status (context, GDK_ACTION_COPY, _time);
-	} else if (mask & GDK_MOD1_MASK || context->suggested_action == GDK_ACTION_ASK) {
+	} else if (mask & GDK_MOD1_MASK || gdk_drag_context_get_suggested_action(context) == GDK_ACTION_ASK) {
 		gdk_drag_status (context, GDK_ACTION_ASK, _time);
 	} else {
 		gdk_drag_status (context, GDK_ACTION_MOVE, _time);
@@ -2361,15 +2363,17 @@ drop_playlist_cb (GtkWidget     *widget,
 {
 	gboolean empty_pl;
 
-	if (context->action == GDK_ACTION_ASK)
+	if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_ASK)
+		/* FIXME SEAL
 		context->action = totem_drag_ask (totem_get_playlist_length (totem) > 0);
+		 */
 
-	if (context->action == GDK_ACTION_DEFAULT) {
+	if (gdk_drag_context_get_selected_action(context) == GDK_ACTION_DEFAULT) {
 		gtk_drag_finish (context, FALSE, FALSE, _time);
 		return;
 	}
 
-	empty_pl = (context->action == GDK_ACTION_MOVE);
+	empty_pl = (gdk_drag_context_get_selected_action(context) == GDK_ACTION_MOVE);
 
 	totem_action_drop_files (totem, data, info, empty_pl);
 	gtk_drag_finish (context, TRUE, FALSE, _time);
@@ -2387,7 +2391,7 @@ drag_motion_playlist_cb (GtkWidget      *widget,
 
 	gdk_window_get_pointer (gtk_widget_get_window (widget), NULL, NULL, &mask);
 
-	if (mask & GDK_MOD1_MASK || context->suggested_action == GDK_ACTION_ASK) {
+	if (mask & GDK_MOD1_MASK || gdk_drag_context_get_suggested_action(context) == GDK_ACTION_ASK) {
 		gdk_drag_status (context, GDK_ACTION_ASK, _time);
 	}
 }
